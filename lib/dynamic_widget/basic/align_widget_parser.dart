@@ -1,8 +1,7 @@
 import 'package:dynamic_widget/dynamic_widget.dart';
+import 'package:dynamic_widget/dynamic_widget/attr_helper.dart';
 import 'package:dynamic_widget/dynamic_widget/utils.dart';
 import 'package:flutter/widgets.dart';
-
-import '../attr_helper.dart';
 
 class AlignWidgetParser extends WidgetParser {
   @override

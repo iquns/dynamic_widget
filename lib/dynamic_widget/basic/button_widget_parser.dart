@@ -5,6 +5,12 @@ import 'package:flutter/material.dart';
 
 class RaisedButtonParser extends WidgetParser {
   @override
+  String get widgetName => "RaisedButton";
+
+  @override
+  Type get widgetType => RaisedButton;
+
+  @override
   Map<String, List> attrMapping() {
     return <String, List>{
       "client_event": [String, ""],
@@ -44,9 +50,6 @@ class RaisedButtonParser extends WidgetParser {
   }
 
   @override
-  String get widgetName => "RaisedButton";
-
-  @override
   Map<String, dynamic> export(Widget? widget, BuildContext? buildContext) {
     var realWidget = widget as RaisedButton;
     var padding = realWidget.padding as EdgeInsets?;
@@ -76,12 +79,35 @@ class RaisedButtonParser extends WidgetParser {
       "child": DynamicWidgetBuilder.export(realWidget.child, buildContext)
     };
   }
-
-  @override
-  Type get widgetType => RaisedButton;
 }
 
 class ElevatedButtonParser extends WidgetParser {
+  @override
+  String get widgetName => "ElevatedButton";
+
+  @override
+  Type get widgetType => ElevatedButton;
+
+  @override
+  Map<String, List> attrMapping() {
+    return <String, List>{
+      "client_event": [String, ""],
+      "foregroundColor": [Color, null, (v) => MaterialStateProperty.all(v)],
+      "backgroundColor": [Color, null, (v) => MaterialStateProperty.all(v)],
+      "overlayColor": [Color, null, (v) => MaterialStateProperty.all(v)],
+      "shadowColor": [Color, null, (v) => MaterialStateProperty.all(v)],
+      "elevation": [Color, null, (v) => MaterialStateProperty.all(v)],
+      "padding": [
+        EdgeInsetsGeometry,
+        null,
+        (v) => MaterialStateProperty.all(v)
+      ],
+      "textStyle": [TextStyle, null, (v) => MaterialStateProperty.all(v)],
+      "alignment": [Alignment, null],
+      "child": [Widget, null],
+    };
+  }
+
   @override
   Map<String, dynamic>? export(Widget? widget, BuildContext? buildContext) {
     var realWidget = widget as ElevatedButton;
@@ -129,22 +155,51 @@ class ElevatedButtonParser extends WidgetParser {
   }
 
   @override
+  Widget parse(
+      AttrSet attr, BuildContext buildContext, ClickListener? listener) {
+    String? clickEvent = attr.get('click_event');
+
+    return ElevatedButton(
+        onPressed: () {
+          listener!.onClicked(clickEvent);
+        },
+        style: ButtonStyle(
+          foregroundColor: attr.get("foregroundColor"),
+          backgroundColor: attr.get("backgroundColor"),
+          overlayColor: attr.get("overlayColor"),
+          shadowColor: attr.get("shadowColor"),
+          elevation: attr.get("elevation"),
+          padding: attr.get("padding"),
+          textStyle: attr.get("textStyle"),
+          alignment: attr.get("alignment"),
+        ),
+        child: attr.get("child"));
+  }
+}
+
+class TextButtonParser extends WidgetParser {
+  @override
+  String get widgetName => "TextButton";
+
+  @override
+  Type get widgetType => TextButton;
+
+  @override
   Map<String, List> attrMapping() {
     return <String, List>{
       "client_event": [String, ""],
-      "foregroundColor": [
-        Color,
+      "foregroundColor": [Color, null, (v) => MaterialStateProperty.all(v)],
+      "backgroundColor": [Color, null, (v) => MaterialStateProperty.all(v)],
+      "overlayColor": [Color, null, (v) => MaterialStateProperty.all(v)],
+      "shadowColor": [Color, null, (v) => MaterialStateProperty.all(v)],
+      "elevation": [Color, null, (v) => MaterialStateProperty.all(v)],
+      "padding": [
+        EdgeInsetsGeometry,
         null,
         (v) => MaterialStateProperty.all(v)
       ],
-      "color": [Color, null],
-      "disabledColor": [Color, null],
-      "disabledElevation": [double, 0.0],
-      "disabledTextColor": [Color, null],
-      "elevation": [double, 0.0],
-      "padding": [EdgeInsetsGeometry, null],
-      "splashColor": [Color, null],
-      "textColor": [Color, null],
+      "textStyle": [TextStyle, null, (v) => MaterialStateProperty.all(v)],
+      "alignment": [Alignment, null],
       "child": [Widget, null],
     };
   }
@@ -152,51 +207,25 @@ class ElevatedButtonParser extends WidgetParser {
   @override
   Widget parse(
       AttrSet attr, BuildContext buildContext, ClickListener? listener) {
-    String? clickEvent = attr.get('click_event');
+    String? clickEvent = attr.get("click_event");
 
-    return ElevatedButton(
-      onPressed: () {
-        listener!.onClicked(clickEvent);
-      },
-      style: ButtonStyle(
-        foregroundColor: map.containsKey("foregroundColor")
-            ? MaterialStateProperty.all(parseHexColor(map["foregroundColor"]))
-            : null,
-        backgroundColor: map.containsKey("backgroundColor")
-            ? MaterialStateProperty.all(parseHexColor(map["backgroundColor"]))
-            : null,
-        overlayColor: map.containsKey("overlayColor")
-            ? MaterialStateProperty.all(parseHexColor(map["overlayColor"]))
-            : null,
-        shadowColor: map.containsKey("shadowColor")
-            ? MaterialStateProperty.all(parseHexColor(map["shadowColor"]))
-            : null,
-        elevation: map.containsKey("elevation")
-            ? MaterialStateProperty.all(map["elevation"])
-            : null,
-        padding: map.containsKey("padding")
-            ? MaterialStateProperty.all(parseEdgeInsetsGeometry(map["padding"]))
-            : null,
-        textStyle: map.containsKey("textStyle")
-            ? MaterialStateProperty.all(parseTextStyle(map["textStyle"]))
-            : null,
-        alignment: map.containsKey("alignment")
-            ? parseAlignment(map["alignment"])
-            : null,
-      ),
-      child: DynamicWidgetBuilder.buildFromMap(
-          map['child'], buildContext, listener),
-    );
+    return TextButton(
+        onPressed: () {
+          listener!.onClicked(clickEvent);
+        },
+        style: ButtonStyle(
+          foregroundColor: attr.get("foregroundColor"),
+          backgroundColor: attr.get("backgroundColor"),
+          overlayColor: attr.get("overlayColor"),
+          shadowColor: attr.get("shadowColor"),
+          elevation: attr.get("elevation"),
+          padding: attr.get("padding"),
+          textStyle: attr.get("textStyle"),
+          alignment: attr.get("alignment"),
+        ),
+        child: attr.get("child"));
   }
 
-  @override
-  String get widgetName => "ElevatedButton";
-
-  @override
-  Type get widgetType => ElevatedButton;
-}
-
-class TextButtonParser extends WidgetParser {
   @override
   Map<String, dynamic>? export(Widget? widget, BuildContext? buildContext) {
     var realWidget = widget as TextButton;
@@ -243,51 +272,4 @@ class TextButtonParser extends WidgetParser {
     };
     return map;
   }
-
-  @override
-  Widget parse(Map<String, dynamic> map, BuildContext buildContext,
-      ClickListener? listener) {
-    String? clickEvent =
-        map.containsKey("click_event") ? map['click_event'] : "";
-
-    return TextButton(
-      onPressed: () {
-        listener!.onClicked(clickEvent);
-      },
-      style: ButtonStyle(
-        foregroundColor: map.containsKey("foregroundColor")
-            ? MaterialStateProperty.all(parseHexColor(map["foregroundColor"]))
-            : null,
-        backgroundColor: map.containsKey("backgroundColor")
-            ? MaterialStateProperty.all(parseHexColor(map["backgroundColor"]))
-            : null,
-        overlayColor: map.containsKey("overlayColor")
-            ? MaterialStateProperty.all(parseHexColor(map["overlayColor"]))
-            : null,
-        shadowColor: map.containsKey("shadowColor")
-            ? MaterialStateProperty.all(parseHexColor(map["shadowColor"]))
-            : null,
-        elevation: map.containsKey("elevation")
-            ? MaterialStateProperty.all(map["elevation"])
-            : null,
-        padding: map.containsKey("padding")
-            ? MaterialStateProperty.all(parseEdgeInsetsGeometry(map["padding"]))
-            : null,
-        textStyle: map.containsKey("textStyle")
-            ? MaterialStateProperty.all(parseTextStyle(map["textStyle"]))
-            : null,
-        alignment: map.containsKey("alignment")
-            ? parseAlignment(map["alignment"])
-            : null,
-      ),
-      child: DynamicWidgetBuilder.buildFromMap(
-          map['child'], buildContext, listener)!,
-    );
-  }
-
-  @override
-  String get widgetName => "TextButton";
-
-  @override
-  Type get widgetType => TextButton;
 }

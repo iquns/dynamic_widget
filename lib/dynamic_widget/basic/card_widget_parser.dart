@@ -1,4 +1,5 @@
 import 'package:dynamic_widget/dynamic_widget.dart';
+import 'package:dynamic_widget/dynamic_widget/attr_helper.dart';
 import 'package:dynamic_widget/dynamic_widget/common/rounded_rectangle_border_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/utils.dart';
 import 'package:flutter/material.dart';
@@ -55,21 +56,32 @@ class CardParser extends WidgetParser {
   }
 
   @override
-  Widget parse(Map<String, dynamic> map, BuildContext buildContext,
-      ClickListener? listener) {
-    final Color? color = parseHexColor(map['color']);
-    final Color? shadowColor = parseHexColor(map['shadowColor']);
-    final double? elevation = toDouble(map['elevation'], null);
-    final bool borderOnForeground = toBool(map['borderOnForeground']);
-    final EdgeInsetsGeometry? margin = parseEdgeInsetsGeometry(map['margin']);
-    final bool semanticContainer = toBool(map['semanticContainer']);
-    final Clip clipBehavior = parseClipBehavior(map['clipBehavior']);
-    final Map<String, dynamic>? childMap = map['child'];
-    final Widget? child = childMap == null
-        ? null
-        : DynamicWidgetBuilder.buildFromMap(childMap, buildContext, listener);
-    final RoundedRectangleBorder? shape =
-        RoundedRectangleBorderParser.parse(map['shape']);
+  Map<String, List> attrMapping() {
+    return <String, List>{
+      "color": [Color, null],
+      "shadowColor": [Color, null],
+      "elevation": [double, null],
+      "borderOnForeground": [bool, false],
+      "margin": [EdgeInsetsGeometry, null],
+      "semanticContainer": [bool, false],
+      "clipBehavior": [Clip, Clip.antiAlias],
+      "child": [Widget, null],
+      "shape": [RoundedRectangleBorder, null],
+    };
+  }
+
+  @override
+  Widget parse(
+      AttrSet attr, BuildContext buildContext, ClickListener? listener) {
+    final Color? color = attr.get('color');
+    final Color? shadowColor = attr.get('shadowColor');
+    final double? elevation = attr.get('elevation');
+    final bool borderOnForeground = attr.get('borderOnForeground');
+    final EdgeInsetsGeometry? margin = attr.get('margin');
+    final bool semanticContainer = attr.get('semanticContainer');
+    final Clip clipBehavior = attr.get('clipBehavior');
+    final Widget? child = attr.get('child');
+    final RoundedRectangleBorder? shape = attr.get('shape');
 
     var card = Card(
       color: color,

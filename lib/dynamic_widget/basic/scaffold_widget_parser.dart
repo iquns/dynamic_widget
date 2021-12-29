@@ -1,9 +1,14 @@
 import 'package:dynamic_widget/dynamic_widget.dart';
+import 'package:dynamic_widget/dynamic_widget/attr_helper.dart';
 import 'package:dynamic_widget/dynamic_widget/utils.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class ScaffoldWidgetParser extends WidgetParser {
+  @override
+  Map<String, List> attrMapping() {
+    return <String, List>{};
+  }
+
   @override
   Map<String, dynamic> export(Widget? widget, BuildContext? buildContext) {
     var realWidget = widget as Scaffold;
@@ -21,8 +26,8 @@ class ScaffoldWidgetParser extends WidgetParser {
   }
 
   @override
-  Widget parse(Map<String, dynamic> map, BuildContext buildContext,
-      ClickListener? listener) {
+  Widget parse(
+      AttrSet attr, BuildContext buildContext, ClickListener? listener) {
     var scaffoldWidget = Scaffold(
       appBar: map.containsKey("appBar")
           ? DynamicWidgetBuilder.buildFromMap(

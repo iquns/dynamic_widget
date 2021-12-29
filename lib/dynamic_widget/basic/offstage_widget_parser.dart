@@ -1,9 +1,14 @@
 import 'package:dynamic_widget/dynamic_widget.dart';
-import 'package:flutter/cupertino.dart';
-
-import '../utils.dart';
+import 'package:dynamic_widget/dynamic_widget/attr_helper.dart';
+import 'package:dynamic_widget/dynamic_widget/utils.dart';
+import 'package:flutter/widgets.dart';
 
 class OffstageWidgetParser extends WidgetParser {
+  @override
+  Map<String, List> attrMapping() {
+    return <String, List>{};
+  }
+
   @override
   Map<String, dynamic> export(Widget? widget, BuildContext? buildContext) {
     Offstage realWidget = widget as Offstage;
@@ -15,8 +20,8 @@ class OffstageWidgetParser extends WidgetParser {
   }
 
   @override
-  Widget parse(Map<String, dynamic> map, BuildContext buildContext,
-      ClickListener? listener) {
+  Widget parse(
+      AttrSet attr, BuildContext buildContext, ClickListener? listener) {
     return Offstage(
       offstage: toBool(map['offstage'], true),
       child: DynamicWidgetBuilder.buildFromMap(

@@ -1,11 +1,15 @@
-
 import 'package:dynamic_widget/dynamic_widget.dart';
+import 'package:dynamic_widget/dynamic_widget/attr_helper.dart';
+import 'package:dynamic_widget/dynamic_widget/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/widgets.dart';
 
-import '../utils.dart';
+class DividerWidgetParser extends WidgetParser {
+  @override
+  Map<String, List> attrMapping() {
+    return <String, List>{};
+  }
 
-class DividerWidgetParser extends WidgetParser{
   @override
   Map<String, dynamic>? export(Widget? widget, BuildContext? buildContext) {
     Divider realWidget = widget as Divider;
@@ -16,14 +20,14 @@ class DividerWidgetParser extends WidgetParser{
       "indent": realWidget.indent,
       "endIndent": realWidget.endIndent,
       "color": realWidget.color != null
-          ? realWidget.color!.value.toRadixString(16): null,
+          ? realWidget.color!.value.toRadixString(16)
+          : null,
     };
-
   }
 
   @override
-  Widget parse(Map<String, dynamic> map, BuildContext buildContext, ClickListener? listener) {
-
+  Widget parse(
+      AttrSet attr, BuildContext buildContext, ClickListener? listener) {
     return Divider(
       height: toDouble(map["height"]),
       thickness: toDouble(map["thickness"]),
@@ -38,5 +42,4 @@ class DividerWidgetParser extends WidgetParser{
 
   @override
   Type get widgetType => Divider;
-
 }

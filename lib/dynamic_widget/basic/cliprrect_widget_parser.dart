@@ -1,31 +1,54 @@
 import 'package:dynamic_widget/dynamic_widget.dart';
+import 'package:dynamic_widget/dynamic_widget/attr_helper.dart';
 import 'package:dynamic_widget/dynamic_widget/utils.dart';
 import 'package:flutter/widgets.dart';
 
 class ClipRRectWidgetParser extends WidgetParser {
   @override
-  Widget parse(Map<String, dynamic> map, BuildContext buildContext,
-      ClickListener? listener) {
-    var radius = map['borderRadius'].toString().split(",");
-    double topLeft = toDouble(radius[0]);
-    double topRight = toDouble(radius[1]);
-    double bottomLeft = toDouble(radius[2]);
-    double bottomRight = toDouble(radius[3]);
-    var clipBehaviorString = map['clipBehavior'];
-    return ClipRRect(
-      borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(topLeft),
-          topRight: Radius.circular(topRight),
-          bottomLeft: Radius.circular(bottomLeft),
-          bottomRight: Radius.circular(bottomRight)),
-      clipBehavior: parseClipBehavior(clipBehaviorString),
-      child: DynamicWidgetBuilder.buildFromMap(
-          map["child"], buildContext, listener),
-    );
+  String get widgetName => "ClipRRect";
+
+  @override
+  Type get widgetType => ClipRRect;
+
+  @override
+  Map<String, List> attrMapping() {
+    return <String, List>{
+      "borderRadius": [
+        String,
+        "",
+        (v) {
+          // support space or ,
+          List radius = v
+              .toString()
+              .replaceAll(",", " ")
+              .replaceAll(r'\s+', " ")
+              .split(" ");
+          var len = radius.length;
+          double topLeft = toDouble(radius[0]);
+          double topRight = len > 1 ? toDouble(radius[1]) : 0.0;
+          double bottomLeft = len > 2 ? toDouble(radius[2]) : 0.0;
+          double bottomRight = len > 3 ? toDouble(radius[3]) : 0.0;
+          return BorderRadius.only(
+              topLeft: Radius.circular(topLeft),
+              topRight: Radius.circular(topRight),
+              bottomLeft: Radius.circular(bottomLeft),
+              bottomRight: Radius.circular(bottomRight));
+        }
+      ],
+      "clipBehavior": [Clip, Clip.antiAlias],
+      "child": [Widget, null],
+    };
   }
 
   @override
-  String get widgetName => "ClipRRect";
+  Widget parse(
+      AttrSet attr, BuildContext buildContext, ClickListener? listener) {
+    return ClipRRect(
+      borderRadius: attr.get('borderRadius'),
+      clipBehavior: attr.get('clipBehavior'),
+      child: attr.get('child'),
+    );
+  }
 
   @override
   Map<String, dynamic> export(Widget? widget, BuildContext? buildContext) {
@@ -39,7 +62,4 @@ class ClipRRectWidgetParser extends WidgetParser {
       "child": DynamicWidgetBuilder.export(realWidget.child, buildContext)
     };
   }
-
-  @override
-  Type get widgetType => ClipRRect;
 }

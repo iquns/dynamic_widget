@@ -1,12 +1,18 @@
 import 'package:dynamic_widget/dynamic_widget.dart';
+import 'package:dynamic_widget/dynamic_widget/attr_helper.dart';
 import 'package:dynamic_widget/dynamic_widget/utils.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
 
 class TextWidgetParser implements WidgetParser {
   @override
-  Widget parse(Map<String, dynamic> map, BuildContext buildContext,
-      ClickListener? listener) {
+  Map<String, List> attrMapping() {
+    return <String, List>{};
+  }
+
+  @override
+  Widget parse(
+      AttrSet attr, BuildContext buildContext, ClickListener? listener) {
     String? data = toStr(map['data'], null);
     String? textAlignString = toStr(map['textAlign'], null);
     String? overflow = toStr(map['overflow'], null);
@@ -100,7 +106,7 @@ class TextWidgetParser implements WidgetParser {
 }
 
 class TextSpanParser {
-  TextSpan parse(Map<String, dynamic> map, ClickListener? listener) {
+  TextSpan parse(AttrSet attr, ClickListener? listener) {
     String? clickEvent = map.containsKey("recognizer") ? map['recognizer'] : "";
     var textSpan = TextSpan(
         text: map['text'],

@@ -1,12 +1,17 @@
 import 'package:dynamic_widget/dynamic_widget.dart';
+import 'package:dynamic_widget/dynamic_widget/attr_helper.dart';
 import 'package:dynamic_widget/dynamic_widget/utils.dart';
 import 'package:flutter/widgets.dart';
 
 class RowWidgetParser extends WidgetParser {
   @override
-  Widget parse(Map<String, dynamic> map, BuildContext buildContext,
-      ClickListener? listener) {
+  Map<String, List> attrMapping() {
+    return <String, List>{};
+  }
 
+  @override
+  Widget parse(
+      AttrSet attr, BuildContext buildContext, ClickListener? listener) {
     return Row(
       crossAxisAlignment: map.containsKey('crossAxisAlignment')
           ? parseCrossAxisAlignment(map['crossAxisAlignment'])
@@ -66,9 +71,13 @@ class RowWidgetParser extends WidgetParser {
 
 class ColumnWidgetParser extends WidgetParser {
   @override
-  Widget parse(Map<String, dynamic> map, BuildContext buildContext,
-      ClickListener? listener) {
+  Map<String, List> attrMapping() {
+    return <String, List>{};
+  }
 
+  @override
+  Widget parse(
+      AttrSet attr, BuildContext buildContext, ClickListener? listener) {
     return Column(
       crossAxisAlignment: map.containsKey('crossAxisAlignment')
           ? parseCrossAxisAlignment(map['crossAxisAlignment'])

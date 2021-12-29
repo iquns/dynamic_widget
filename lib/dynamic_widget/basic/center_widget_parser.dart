@@ -1,16 +1,24 @@
 import 'package:dynamic_widget/dynamic_widget.dart';
-import 'package:dynamic_widget/dynamic_widget/utils.dart';
+import 'package:dynamic_widget/dynamic_widget/attr_helper.dart';
 import 'package:flutter/widgets.dart';
 
 class CenterWidgetParser extends WidgetParser {
   @override
-  Widget parse(Map<String, dynamic> map, BuildContext buildContext,
-      ClickListener? listener) {
+  Map<String, List> attrMapping() {
+    return <String, List>{
+      "widthFactor": [double, null],
+      "heightFactor": [double, null],
+      "child": [Widget, null],
+    };
+  }
+
+  @override
+  Widget parse(
+      AttrSet attr, BuildContext buildContext, ClickListener? listener) {
     return Center(
-      widthFactor: toDouble(map["widthFactor"], null),
-      heightFactor: toDouble(map["heightFactor"], null),
-      child: DynamicWidgetBuilder.buildFromMap(
-          map["child"], buildContext, listener),
+      widthFactor: attr.get("widthFactor"),
+      heightFactor: attr.get("heightFactor"),
+      child: attr.get("child"),
     );
   }
 

@@ -1,42 +1,58 @@
 import 'dart:ui';
 
 import 'package:dynamic_widget/dynamic_widget.dart';
+import 'package:dynamic_widget/dynamic_widget/attr_helper.dart';
 import 'package:dynamic_widget/dynamic_widget/utils.dart';
 import 'package:flutter/widgets.dart';
 
 class AssetImageWidgetParser extends WidgetParser {
   @override
-  Widget parse(Map<String, dynamic> map, BuildContext buildContext,
-      ClickListener? listener) {
-    String name = map['name'];
-    String? semanticLabel =
-        map.containsKey('semanticLabel') ? map['semanticLabel'] : null;
-    bool excludeFromSemantics = toBool(map['excludeFromSemantics'], false);
-    double? scale = toDouble(map['scale'], null);
-    double? width = toDouble(map['width'], null);
-    double? height = toDouble(map['height'], null);
-    Color? color =
-        map.containsKey('color') ? parseHexColor(map['color']) : null;
-    BlendMode? colorBlendMode = map.containsKey('colorBlendMode')
-        ? parseBlendMode(map['colorBlendMode'])
-        : null;
-    BoxFit? fit = map.containsKey('fit') ? parseBoxFit(map['fit']) : null;
-    Alignment alignment = map.containsKey('alignment')
-        ? parseAlignment(map['alignment'])
-        : Alignment.center;
-    ImageRepeat repeat = map.containsKey('repeat')
-        ? parseImageRepeat(map['repeat'])!
-        : ImageRepeat.noRepeat;
-    Rect? centerSlice =
-        map.containsKey('centerSlice') ? parseRect(map['centerSlice']) : null;
-    bool matchTextDirection = toBool(map['matchTextDirection'], false);
-    bool gaplessPlayback = toBool(map['gaplessPlayback'], false);
-    FilterQuality filterQuality = map.containsKey('filterQuality')
-        ? parseFilterQuality(map['filterQuality'])!
-        : FilterQuality.low;
+  String get widgetName => "AssetImage";
 
-    String? clickEvent =
-        map.containsKey("click_event") ? map['click_event'] : "";
+  @override
+  Type get widgetType => AssetImage;
+
+  @override
+  Map<String, List> attrMapping() {
+    return <String, List>{
+      "name": [String, null],
+      "semanticLabel": [String, null],
+      "excludeFromSemantics": [bool, false],
+      "scale": [double, null],
+      "width": [double, null],
+      "height": [double, null],
+      "color": [Color, null],
+      "colorBlendMode": [Color, null],
+      "fit": [BoxFit, null],
+      "alignment": [Alignment, Alignment.center],
+      "repeat": [ImageRepeat, ImageRepeat.noRepeat],
+      "centerSlice": [Rect, null],
+      "matchTextDirection": [bool, false],
+      "gaplessPlayback": [bool, false],
+      "filterQuality": [FilterQuality, FilterQuality.low],
+      "click_event": [String, ""],
+    };
+  }
+
+  @override
+  Widget parse(
+      AttrSet attr, BuildContext buildContext, ClickListener? listener) {
+    String name = attr.get('name');
+    String? semanticLabel = attr.get('semanticLabel');
+    bool excludeFromSemantics = attr.get('excludeFromSemantics');
+    double? scale = attr.get('scale');
+    double? width = attr.get('width');
+    double? height = attr.get('height');
+    Color? color = attr.get('color');
+    BlendMode? colorBlendMode = attr.get('colorBlendMode');
+    BoxFit? fit = attr.get('fit');
+    Alignment alignment = attr.get('alignment');
+    ImageRepeat repeat = attr.get('repeat');
+    Rect? centerSlice = attr.get('centerSlice');
+    bool matchTextDirection = attr.get('matchTextDirection');
+    bool gaplessPlayback = attr.get('gaplessPlayback');
+    FilterQuality filterQuality = attr.get('filterQuality');
+    String? clickEvent = attr.get('click_event');
 
     var widget = Image.asset(
       name,
@@ -66,9 +82,6 @@ class AssetImageWidgetParser extends WidgetParser {
     }
     return widget;
   }
-
-  @override
-  String get widgetName => "AssetImage";
 
   @override
   Map<String, dynamic>? export(Widget? widget, BuildContext? buildContext) {
@@ -156,9 +169,6 @@ class AssetImageWidgetParser extends WidgetParser {
     return null;
   }
 
-  @override
-  Type get widgetType => AssetImage;
-
   bool _isMatchAssetImageType(Widget? widget) {
     if (widget is Image) {
       if (widget.image is AssetImage) {
@@ -192,38 +202,47 @@ class AssetImageWidgetParser extends WidgetParser {
 
 class NetworkImageWidgetParser extends WidgetParser {
   @override
-  Widget parse(Map<String, dynamic> map, BuildContext buildContext,
-      ClickListener? listener) {
-    String src = map['src'];
-    String? semanticLabel =
-        map.containsKey('semanticLabel') ? map['semanticLabel'] : null;
-    bool excludeFromSemantics = map.containsKey('excludeFromSemantics')
-        ? map['excludeFromSemantics']
-        : false;
-    double scale = toDouble(map['scale'], 1.0);
-    double? width = toDouble(map['width'], null);
-    double? height = toDouble(map['height'], null);
-    Color? color =
-        map.containsKey('color') ? parseHexColor(map['color']) : null;
-    BlendMode? colorBlendMode = map.containsKey('colorBlendMode')
-        ? parseBlendMode(map['colorBlendMode'])
-        : null;
-    BoxFit? fit = map.containsKey('fit') ? parseBoxFit(map['fit']) : null;
-    Alignment alignment = map.containsKey('alignment')
-        ? parseAlignment(map['alignment'])
-        : Alignment.center;
-    ImageRepeat repeat = map.containsKey('repeat')
-        ? parseImageRepeat(map['repeat'])!
-        : ImageRepeat.noRepeat;
-    Rect? centerSlice =
-        map.containsKey('centerSlice') ? parseRect(map['centerSlice']) : null;
-    bool matchTextDirection = toBool(map['matchTextDirection'], false);
-    bool gaplessPlayback = toBool(map['gaplessPlayback'], false);
-    FilterQuality filterQuality = map.containsKey('filterQuality')
-        ? parseFilterQuality(map['filterQuality'])!
-        : FilterQuality.low;
+  Map<String, List> attrMapping() {
+    return <String, List>{
+      "src": [String, null],
+      "semanticLabel": [String, null],
+      "excludeFromSemantics": [bool, false],
+      "scale": [double, 1.0],
+      "width": [double, null],
+      "height": [double, null],
+      "color": [Color, null],
+      "colorBlendMode": [BlendMode, null],
+      "fit": [BoxFit, null],
+      "alignment": [Alignment, Alignment.center],
+      "repeat": [ImageRepeat, ImageRepeat.noRepeat],
+      "centerSlice": [Rect, null],
+      "matchTextDirection": [bool, false],
+      "gaplessPlayback": [bool, false],
+      "filterQuality": [FilterQuality, FilterQuality.low],
+      "click_event": [String, ""],
+    };
+  }
 
-    String? clickEvent = toStr(map['click_event'], "");
+  @override
+  Widget parse(
+      AttrSet attr, BuildContext buildContext, ClickListener? listener) {
+    String src = attr.get('src');
+    String? semanticLabel = attr.get('semanticLabel');
+    bool excludeFromSemantics = attr.get('excludeFromSemantics');
+    double scale = attr.get('scale');
+    double? width = attr.get('width');
+    double? height = attr.get('height');
+    Color? color = attr.get('color');
+    BlendMode? colorBlendMode = attr.get('colorBlendMode');
+    BoxFit? fit = attr.get('fit');
+    Alignment alignment = attr.get('alignment');
+    ImageRepeat repeat = attr.get('repeat');
+    Rect? centerSlice = attr.get('centerSlice');
+    bool matchTextDirection = attr.get('matchTextDirection');
+    bool gaplessPlayback = attr.get('gaplessPlayback');
+    FilterQuality filterQuality = attr.get('filterQuality');
+
+    String? clickEvent = attr.get('click_event');
 
     var widget = Image.network(
       src,

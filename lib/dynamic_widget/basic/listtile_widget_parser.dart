@@ -1,47 +1,38 @@
 import 'package:dynamic_widget/dynamic_widget.dart';
+import 'package:dynamic_widget/dynamic_widget/attr_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import '../utils.dart';
-
 class ListTileWidgetParser extends WidgetParser {
-  Map attributeMapping() {
-    return <String, List<dynamic>>{
-      "contentPadding": [(v) => parseEdgeInsetsGeometry(v), null],
-      "isThreeLin": [bool, false],
+  @override
+  Map<String, List> attrMapping() {
+    return <String, List>{
+      "isThreeLine": [bool, false],
+      "contentPadding": [EdgeInsetsGeometry, null],
       "dense": [bool, false],
       "enable": [bool, true],
-      "leading": [WidgetParser, null],
+      "leading": [Widget, null],
+      "selected": [bool, false],
+      "subtitle": [Widget, null],
+      "title": [Widget, null],
+      "trailing": [Widget, null],
+      "tapEvent": [String, null],
     };
   }
 
   @override
-  Widget parse(Map<String, dynamic> map, BuildContext buildContext,
-      ClickListener? listener) {
-    bool isThreeLine = toBool(map["isThreeLine"], false);
-    EdgeInsetsGeometry? contentPadding = map.containsKey("contentPadding")
-        ? parseEdgeInsetsGeometry(map["contentPadding"])
-        : null;
-    bool? dense = toBool(map["dense"], false);
-    bool enabled = toBool(map["enabled"], true);
-    Widget? leading = map.containsKey("leading")
-        ? DynamicWidgetBuilder.buildFromMap(
-            map["leading"], buildContext, listener)
-        : null;
-    bool selected = toBool(map["selected"], false);
-    Widget? subtitle = map.containsKey("subtitle")
-        ? DynamicWidgetBuilder.buildFromMap(
-            map["subtitle"], buildContext, listener)
-        : null;
-    Widget? title = map.containsKey("title")
-        ? DynamicWidgetBuilder.buildFromMap(
-            map["title"], buildContext, listener)
-        : null;
-    Widget? trailing = map.containsKey("trailing")
-        ? DynamicWidgetBuilder.buildFromMap(
-            map["trailing"], buildContext, listener)
-        : null;
-    String? tapEvent = toStr(map["tapEvent"], null);
+  Widget parse(
+      AttrSet attr, BuildContext buildContext, ClickListener? listener) {
+    bool isThreeLine = attr.get("isThreeLine");
+    EdgeInsetsGeometry? contentPadding = attr.get("contentPadding");
+    bool? dense = attr.get("dense");
+    bool enabled = attr.get("enabled");
+    Widget? leading = attr.get("leading");
+    bool selected = attr.get("selected");
+    Widget? subtitle = attr.get("subtitle");
+    Widget? title = attr.get("title");
+    Widget? trailing = attr.get("trailing");
+    String? tapEvent = attr.get("tapEvent");
 
     return ListTile(
       isThreeLine: isThreeLine,

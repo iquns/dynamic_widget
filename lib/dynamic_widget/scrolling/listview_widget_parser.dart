@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:dynamic_widget/dynamic_widget.dart';
+import 'package:dynamic_widget/dynamic_widget/attr_helper.dart';
 import 'package:dynamic_widget/dynamic_widget/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -9,26 +10,34 @@ import 'package:http/http.dart' as http;
 
 class ListViewWidgetParser extends WidgetParser {
   @override
-  Widget parse(Map<String, dynamic> map, BuildContext buildContext,
-      ClickListener? listener) {
-    var scrollDirection = Axis.vertical;
-    if (map.containsKey("scrollDirection") &&
-        "horizontal" == map["scrollDirection"]) {
-      scrollDirection = Axis.horizontal;
-    }
+  Map<String, List> attrMapping() {
+    return <String, List>{
+      "scrollDirection": [Axis, Axis.vertical],
+      "reverse": [bool, false],
+      "shrinkWrap": [bool, false],
+      "cacheExtent": [double, 0.0],
+      "padding": [EdgeInsetsGeometry, null],
+      "itemExtent": [double, null],
+      "children": [Widgets, null],
+      "pageSize": [int, 10],
+      "loadMoreUrl": [String, ""],
+      "isDemo": [bool, false],
+    };
+  }
 
-    var reverse = toBool(map['reverse'], false);
-    var shrinkWrap = toBool(map["shrinkWrap"], false);
-    var cacheExtent = toDouble(map["cacheExtent"], 0.0);
-    var padding = map.containsKey('padding')
-        ? parseEdgeInsetsGeometry(map['padding'])
-        : null;
-    var itemExtent = toDouble(map["itemExtent"], null);
-    var children = DynamicWidgetBuilder.buildWidgets(
-        map['children'], buildContext, listener);
-    var pageSize = toInt(map["pageSize"], 10);
-    var loadMoreUrl = toStr(map["loadMoreUrl"], null);
-    var isDemo = toBool(map["isDemo"], false);
+  @override
+  Widget parse(
+      AttrSet attr, BuildContext buildContext, ClickListener? listener) {
+    var scrollDirection = attr.get("scrollDirection");
+    var reverse = attr.get("reverse");
+    var shrinkWrap = attr.get("shrinkWrap");
+    var cacheExtent = attr.get("cacheExtent");
+    var padding = attr.get("padding");
+    var itemExtent = attr.get("itemExtent");
+    var children = attr.get("children");
+    var pageSize = attr.get("pagSize");
+    var loadMoreUrl = attr.get("loadMoreUrl");
+    var isDemo = attr.get("isDemo");
 
     var params = new ListViewParams(
         scrollDirection: scrollDirection,

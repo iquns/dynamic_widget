@@ -1,12 +1,18 @@
 import 'package:dynamic_widget/dynamic_widget.dart';
+import 'package:dynamic_widget/dynamic_widget/attr_helper.dart';
 import 'package:dynamic_widget/dynamic_widget/utils.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class SelectableTextWidgetParser implements WidgetParser {
   @override
-  Widget parse(Map<String, dynamic> map, BuildContext buildContext,
-      ClickListener? listener) {
+  Map<String, List> attrMapping() {
+    return <String, List>{};
+  }
+
+  @override
+  Widget parse(
+      AttrSet attr, BuildContext buildContext, ClickListener? listener) {
     String? data = toStr(map['data']);
     String? textAlignString = toStr(map['textAlign']);
     int? maxLines = toInt(map['maxLines'], null);
@@ -79,7 +85,7 @@ class SelectableTextWidgetParser implements WidgetParser {
 }
 
 class SelectableTextSpanParser {
-  TextSpan parse(Map<String, dynamic> map, ClickListener? listener) {
+  TextSpan parse(AttrSet attr, ClickListener? listener) {
     String? clickEvent = map.containsKey("recognizer") ? map['recognizer'] : "";
     var textSpan = TextSpan(
         text: map['text'],
