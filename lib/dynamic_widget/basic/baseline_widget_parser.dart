@@ -1,17 +1,24 @@
 import 'package:dynamic_widget/dynamic_widget.dart';
+import 'package:dynamic_widget/dynamic_widget/attr_helper.dart';
 import 'package:flutter/widgets.dart';
 
 class BaselineWidgetParser extends WidgetParser {
   @override
-  Widget parse(Map<String, dynamic> map, BuildContext buildContext,
-      ClickListener? listener) {
+  Map<String, List> attrMapping() {
+    return <String, List>{
+      "baseline": [double, 0.0],
+      "baselineType": [TextBaseline, TextBaseline.ideographic],
+      "child": [Widget, null],
+    };
+  }
+
+  @override
+  Widget parse(
+      AttrSet attr, BuildContext buildContext, ClickListener? listener) {
     return Baseline(
-      baseline: map["baseline"]?.toDouble(),
-      baselineType: map["baselineType"] == "alphabetic"
-          ? TextBaseline.alphabetic
-          : TextBaseline.ideographic,
-      child: DynamicWidgetBuilder.buildFromMap(
-          map["child"], buildContext, listener),
+      baseline: attr.get("baseline"),
+      baselineType: attr.get("baselineType"),
+      child: attr.get("child"),
     );
   }
 

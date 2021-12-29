@@ -1,5 +1,5 @@
 import 'package:dynamic_widget/dynamic_widget.dart';
-import 'package:dynamic_widget/dynamic_widget/utils.dart';
+import 'package:dynamic_widget/dynamic_widget/attr_helper.dart';
 import 'package:flutter/material.dart';
 
 class AppBarWidgetParser extends WidgetParser {
@@ -27,28 +27,15 @@ class AppBarWidgetParser extends WidgetParser {
   }
 
   @override
-  Widget parse(Map<String, dynamic> map, BuildContext buildContext,
-      ClickListener? listener) {
+  Widget parse(
+      AttrSet attr, BuildContext buildContext, ClickListener? listener) {
     var appBarWidget = AppBar(
-      title: map.containsKey("title")
-          ? DynamicWidgetBuilder.buildFromMap(
-              map["title"], buildContext, listener)
-          : null,
-      leading: map.containsKey("leading")
-          ? DynamicWidgetBuilder.buildFromMap(
-              map["leading"], buildContext, listener)
-          : null,
-      actions: map.containsKey("actions")
-          ? DynamicWidgetBuilder.buildWidgets(
-              map["actions"], buildContext, listener) as List<Widget>?
-          : null,
-      centerTitle:
-          map.containsKey("centerTitle") ? map["centerTitle"] as bool? : false,
-      backgroundColor: map.containsKey("backgroundColor")
-          ? parseHexColor(map["backgroundColor"])
-          : null,
+      title: attr.get('title'),
+      leading: attr.get('leading'),
+      actions: attr.get('actions'),
+      centerTitle: attr.get('centerTitle'),
+      backgroundColor: attr.get('backgroundColor'),
     );
-
     return appBarWidget;
   }
 
@@ -57,4 +44,15 @@ class AppBarWidgetParser extends WidgetParser {
 
   @override
   Type get widgetType => AppBar;
+
+  @override
+  Map<String, List> attrMapping() {
+    return {
+      "title": [Widget, null],
+      "leading": [Widget, null],
+      "actions": [Widgets, <dynamic>[]],
+      "centerTitle": [bool, false],
+      "backgroundColor": [Color, null],
+    };
+  }
 }

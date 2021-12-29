@@ -1,5 +1,6 @@
 library dynamic_widget;
 
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:dynamic_widget/dynamic_widget/basic/align_widget_parser.dart';
@@ -38,9 +39,12 @@ import 'package:dynamic_widget/dynamic_widget/scrolling/single_child_scroll_view
 import 'package:flutter/widgets.dart';
 import 'package:logging/logging.dart';
 
+import 'dynamic_widget/attr_helper.dart';
 import 'dynamic_widget/basic/cliprrect_widget_parser.dart';
 import 'dynamic_widget/basic/overflowbox_widget_parser.dart';
 import 'dynamic_widget/basic/rotatedbox_widget_parser.dart';
+
+class Widgets {}
 
 class DynamicWidgetBuilder {
   static final Logger log = Logger('DynamicWidget');
@@ -90,7 +94,11 @@ class DynamicWidgetBuilder {
     SingleChildScrollViewParser()
   ];
 
-  static final _widgetNameParserMap = <String, WidgetParser>{};
+  static final _widgetNameParserMap = new LinkedHashMap<String, dynamic>(
+      equals: (a, b) => a.toLowerCase() == b.toLowerCase(),
+      hashCode: (key) => key.toLowerCase().hashCode);
+
+  static List<WidgetParser> get parserList => _parsers;
 
   static bool _defaultParserInited = false;
 
@@ -133,7 +141,8 @@ class DynamicWidgetBuilder {
     }
     var parser = _widgetNameParserMap[widgetName];
     if (parser != null) {
-      return parser.parse(map, buildContext, listener);
+      var attr = AttrSet(parser.attrMapping(), map, buildContext, listener);
+      return parser.parse(attr, buildContext, listener);
     }
     log.warning("Not support parser type: $widgetName");
     return null;
@@ -186,8 +195,10 @@ class DynamicWidgetBuilder {
 
 /// extends this class to make a Flutter widget parser.
 abstract class WidgetParser {
+  Map<String, List<dynamic>> attrMapping();
+
   /// parse the json map into a flutter widget.
-  Widget parse(Map<String, dynamic> map, BuildContext buildContext,
+  Widget parse(AttrSet attr, BuildContext buildContext,
       ClickListener? listener);
 
   /// the widget type name for example:

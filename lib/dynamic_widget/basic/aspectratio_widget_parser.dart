@@ -1,14 +1,22 @@
 import 'package:dynamic_widget/dynamic_widget.dart';
+import 'package:dynamic_widget/dynamic_widget/attr_helper.dart';
 import 'package:flutter/widgets.dart';
 
 class AspectRatioWidgetParser extends WidgetParser {
   @override
-  Widget parse(Map<String, dynamic> map, BuildContext buildContext,
-      ClickListener? listener) {
+  Map<String, List> attrMapping() {
+    return <String, List>{
+      "aspectRatio": [double, 0.0],
+      "child": [Widget, null],
+    };
+  }
+
+  @override
+  Widget parse(
+      AttrSet attr, BuildContext buildContext, ClickListener? listener) {
     return AspectRatio(
-      aspectRatio: map["aspectRatio"]?.toDouble(),
-      child: DynamicWidgetBuilder.buildFromMap(
-          map["child"], buildContext, listener),
+      aspectRatio: attr.get("aspectRatio"),
+      child: attr.get("child"),
     );
   }
 
