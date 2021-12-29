@@ -1,9 +1,11 @@
 import 'package:dynamic_widget/dynamic_widget.dart';
+import 'package:dynamic_widget/dynamic_widget/basic/selectabletext_widget_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/common/rounded_rectangle_border_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/drop_cap_text.dart';
 import 'package:dynamic_widget/dynamic_widget/icons_helper.dart';
 import 'package:dynamic_widget/dynamic_widget/utils.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 typedef FunctionConvertAttr = dynamic Function(dynamic v);
 
@@ -51,9 +53,9 @@ class AttrSet {
       Color: (v) => parseHexColor(v),
       Alignment: (v) => parseAlignment(v),
       AlignmentGeometry: (v) => parseAlignment(v),
-      TextBaseline: (v) => toStr(v, "") == "alphabetic"
-          ? TextBaseline.alphabetic
-          : TextBaseline.ideographic,
+      CrossAxisAlignment: (v) => parseCrossAxisAlignment(v),
+      MainAxisAlignment: (v) => parseMainAxisAlignment(v),
+      MainAxisSize: (v) => parseMainAxisSize(v),
       EdgeInsetsGeometry: (v) => parseEdgeInsetsGeometry(v),
       Axis: (v) =>
           "horizontal" == toStr(v, "") ? Axis.horizontal : Axis.vertical,
@@ -62,6 +64,8 @@ class AttrSet {
       TextOverflow: (v) => parseTextOverflow(v),
       TextDirection: (v) => parseTextDirection(v),
       TextAlign: (v) => parseTextAlign(v),
+      TextBaseline: (v) => parseTextBaseline(toStr(v, "")),
+      TextSpan: (v) => SelectableTextSpanParser().parse(v, listener),
       RoundedRectangleBorder: (v) => RoundedRectangleBorderParser.parse(v),
       IconData: (v) => getIconUsingPrefix(name: v),
       BoxConstraints: (v) => parseBoxConstraints(v),
@@ -72,6 +76,8 @@ class AttrSet {
       ImageRepeat: (v) => parseImageRepeat(v),
       Rect: (v) => parseRect(v),
       FilterQuality: (v) => parseFilterQuality(v),
+      VerticalDirection: (v) => parseVerticalDirection(v),
+      StackFit: (v) => parseStackFit(v),
     };
 
     var method = methodMap[attrType];
