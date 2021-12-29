@@ -1,4 +1,3 @@
-import 'dart:js';
 import 'dart:ui';
 
 import 'package:dynamic_widget/dynamic_widget.dart';
