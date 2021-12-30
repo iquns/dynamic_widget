@@ -35,9 +35,10 @@ class AttrSet {
     // formatter
     var attrFormatter = set.length > 2 ? (set[2] ?? (v) => v) : (v) => v;
 
-    // contains
-    if (values.containsKey(key)) {
-      return attrFormatter(attrDefault);
+
+    // not contains
+    if (!values.containsKey(key)) {
+      return  attrFormatter(attrDefault);
     }
 
     // todo cache map
@@ -65,7 +66,7 @@ class AttrSet {
       TextDirection: (v) => parseTextDirection(v),
       TextAlign: (v) => parseTextAlign(v),
       TextBaseline: (v) => parseTextBaseline(toStr(v, "")),
-      TextSpan: (v) => TextSpanParser().parse(this, buildContext, listener),
+      TextSpan: (v) => TextSpanParser().parseTextSpan(this, buildContext, listener),
       RoundedRectangleBorder: (v) => RoundedRectangleBorderParser.parse(v),
       IconData: (v) => getIconUsingPrefix(name: v),
       BoxConstraints: (v) => parseBoxConstraints(v),

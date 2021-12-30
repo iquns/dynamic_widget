@@ -7,8 +7,8 @@ class LimitedBoxWidgetParser extends WidgetParser {
   @override
   Map<String, List> attrMapping() {
     return <String, List>{
-      "maxHeight": [double, 0],
-      "maxWidth": [double, 0],
+      "maxHeight": [double, 0.0],
+      "maxWidth": [double, 0.0],
       "child": [Widget, null],
     };
   }

@@ -8,7 +8,7 @@ class OpacityWidgetParser extends WidgetParser {
   Map<String, List> attrMapping() {
     return <String, List>{
       "alwaysIncludeSemantics": [bool, false],
-      "opacity": [double, 0],
+      "opacity": [double, 0.0],
       "child": [Widget, null],
     };
   }

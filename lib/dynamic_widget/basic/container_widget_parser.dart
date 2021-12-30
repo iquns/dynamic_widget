@@ -17,8 +17,8 @@ class ContainerWidgetParser extends WidgetParser {
       "margin": [EdgeInsetsGeometry, null],
       "padding": [EdgeInsetsGeometry, null],
       "color": [Color, null],
-      "width": [double, 0],
-      "height": [double, 0],
+      "width": [double, 0.0],
+      "height": [double, 0.0],
       "constraints": [BoxConstraints, null],
       "child": [Widget, null],
       "click_event": [String, ""],
@@ -41,7 +41,8 @@ class ContainerWidgetParser extends WidgetParser {
       child: attr.get('child'),
     );
 
-    if (listener != null && clickEvent != null) {
+    var hasClickEvent = clickEvent?.isNotEmpty ?? false;
+    if (listener != null && hasClickEvent) {
       return GestureDetector(
         onTap: () {
           listener.onClicked(clickEvent);

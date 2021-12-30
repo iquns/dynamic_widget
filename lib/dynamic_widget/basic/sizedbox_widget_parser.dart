@@ -37,8 +37,8 @@ class SizedBoxWidgetParser extends WidgetParser {
   @override
   Map<String, List> attrMapping() {
     return <String, List>{
-      "width": [double, 0],
-      "height": [double, 0],
+      "width": [double, 0.0],
+      "height": [double, 0.0],
       "child": [Widget, null],
     };
   }

@@ -7,12 +7,12 @@ class PositionedWidgetParser extends WidgetParser {
   @override
   Map<String, List> attrMapping() {
     return <String, List>{
-      "bottom": [double, 0],
-      "height": [double, 0],
-      "left": [double, 0],
-      "right": [double, 0],
-      "top": [double, 0],
-      "width": [double, 0],
+      "bottom": [double, 0.0],
+      "height": [double, 0.0],
+      "left": [double, 0.0],
+      "right": [double, 0.0],
+      "top": [double, 0.0],
+      "width": [double, 0.0],
       "child": [Widget, null],
     };
   }

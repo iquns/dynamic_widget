@@ -15,7 +15,7 @@ class TextWidgetParser implements WidgetParser {
       "semanticsLabel": [String, ""],
       "softWrap": [bool, true],
       "textDirection": [TextDirection, TextDirection.ltr],
-      "textScaleFactor": [double, 0],
+      "textScaleFactor": [double, 0.0],
       "textSpan": [TextSpan, null],
     };
   }

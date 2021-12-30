@@ -1,17 +1,14 @@
 var containerJson = '''
 {
   "type": "Container",
-  "color": "#FF00FF",
+  "color": "#FFDEAD",
+  "width": 300,
+  "height": 300,
   "alignment": "center",
   "child": {
     "type": "Text",
     "data": "Flutter dynamic widget",
-    "maxLines": 3,
-    "overflow": "ellipsis",
-    "style": {
-      "color": "#00FFFF",
-      "fontSize": 20.0
-    }
+    "maxLines": 3
   }
 }
 ''';

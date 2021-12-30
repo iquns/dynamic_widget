@@ -121,7 +121,7 @@ class DynamicWidgetBuilder {
   }
 
   static Widget? build(
-      String json, BuildContext buildContext, ClickListener listener) {
+      String json, BuildContext buildContext, ClickListener? listener) {
     initDefaultParsersIfNess();
     var map = jsonDecode(json);
     ClickListener _listener =

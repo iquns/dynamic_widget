@@ -8,9 +8,9 @@ class PlaceholderWidgetParser extends WidgetParser {
   Map<String, List> attrMapping() {
     return <String, List>{
       "color": [Color, null],
-      "strokeWidth": [double, 0],
-      "fallbackWidth": [double, 0],
-      "fallbackHeight": [double, 0],
+      "strokeWidth": [double, 0.0],
+      "fallbackWidth": [double, 0.0],
+      "fallbackHeight": [double, 0.0],
     };
   }
 

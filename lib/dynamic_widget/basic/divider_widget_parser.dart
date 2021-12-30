@@ -8,10 +8,10 @@ class DividerWidgetParser extends WidgetParser {
   @override
   Map<String, List> attrMapping() {
     return <String, List>{
-      "height": [double, 0],
-      "thickness": [double, 0],
-      "indent": [double, 0],
-      "endIndent": [double, 0],
+      "height": [double, 0.0],
+      "thickness": [double, 0.0],
+      "indent": [double, 0.0],
+      "endIndent": [double, 0.0],
       "color": [Color, null],
     };
   }
