@@ -21,7 +21,7 @@ class DropCapTextParser extends WidgetParser {
       "parseInlineMarkdown": [bool, true],
       "textDirection": [TextDirection, TextDirection.ltr],
       "overflow": [TextOverflow, TextOverflow.ellipsis],
-      "maxLines": [int, 0],
+      "maxLines": [int, null],
       "dropCapPosition": [DropCapPosition, DropCapPosition.start],
     };
   }

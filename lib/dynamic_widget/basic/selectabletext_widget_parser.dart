@@ -11,7 +11,7 @@ class SelectableTextWidgetParser implements WidgetParser {
     return <String, List>{
       "data": [String, ""],
       "textAlign": [TextAlign, TextAlign.left],
-      "maxLines": [int, 0],
+      "maxLines": [int, null],
       "textDirection": [TextDirection, TextDirection.ltr],
       "textSpan": [Widget, null],
     };

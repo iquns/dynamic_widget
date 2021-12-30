@@ -11,12 +11,13 @@ class TextWidgetParser implements WidgetParser {
       "data": [String, ""],
       "textAlign": [TextAlign, TextAlign.left],
       "overflow": [TextOverflow, TextOverflow.ellipsis],
-      "maxLines": [int, 0],
+      "maxLines": [int, null],
       "semanticsLabel": [String, ""],
       "softWrap": [bool, true],
       "textDirection": [TextDirection, TextDirection.ltr],
-      "textScaleFactor": [double, 0.0],
+      "textScaleFactor": [double, null],
       "textSpan": [TextSpan, null],
+      "style": [TextStyle, null],
     };
   }
 

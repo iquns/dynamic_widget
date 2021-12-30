@@ -23,9 +23,11 @@ class AttrSet {
 
   AttrSet(this.mapping, this.values, this.buildContext, this.listener);
 
-  get(String key) {
+
+  dynamic get(String key) {
     List? set = this.mapping[key];
     if (set == null) {
+      print("UnKnownField:" + key);
       return null;
     }
     // type
@@ -35,10 +37,10 @@ class AttrSet {
     // formatter
     var attrFormatter = set.length > 2 ? (set[2] ?? (v) => v) : (v) => v;
 
-
     // not contains
     if (!values.containsKey(key)) {
-      return  attrFormatter(attrDefault);
+      // print("UnSetField:" + key);
+      return attrFormatter(attrDefault);
     }
 
     // todo cache map
@@ -66,7 +68,8 @@ class AttrSet {
       TextDirection: (v) => parseTextDirection(v),
       TextAlign: (v) => parseTextAlign(v),
       TextBaseline: (v) => parseTextBaseline(toStr(v, "")),
-      TextSpan: (v) => TextSpanParser().parseTextSpan(this, buildContext, listener),
+      TextSpan: (v) =>
+          TextSpanParser().parseTextSpan(this, buildContext, listener),
       RoundedRectangleBorder: (v) => RoundedRectangleBorderParser.parse(v),
       IconData: (v) => getIconUsingPrefix(name: v),
       BoxConstraints: (v) => parseBoxConstraints(v),
@@ -86,9 +89,10 @@ class AttrSet {
     var method = methodMap[attrType];
 
     if (method == null) {
+      print("UnSupportMethod:" + attrType.toString());
       return attrFormatter(attrDefault);
     }
-    var value = method(values[key]);
+    var value = method(values[key] ?? attrDefault);
 
 /*
     if (attrType == String) {

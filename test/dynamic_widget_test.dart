@@ -1,9 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import "package:dynamic_widget/dynamic_widget.dart";
+import 'package:flutter/cupertino.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
 class MockBuildContext extends Mock implements BuildContext {}
+
 void main() {
   MockBuildContext _mockContext = MockBuildContext();
 
@@ -26,9 +27,7 @@ void main() {
 }
   ''';
 
-
     var container = DynamicWidgetBuilder.build(json, _mockContext, null);
-
 
     expect(container is Container, true);
     container = container as Container;
@@ -36,20 +35,5 @@ void main() {
     expect(container.alignment, Alignment.center);
     expect(container.color, const Color(0xFFFF00FF));
     expect(container.child is Text, true);
-
   });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
