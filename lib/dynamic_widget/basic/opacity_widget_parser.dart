@@ -6,17 +6,20 @@ import 'package:flutter/widgets.dart';
 class OpacityWidgetParser extends WidgetParser {
   @override
   Map<String, List> attrMapping() {
-    return <String, List>{};
+    return <String, List>{
+      "alwaysIncludeSemantics": [bool, false],
+      "opacity": [double, 0],
+      "child": [Widget, null],
+    };
   }
 
   @override
   Widget parse(
       AttrSet attr, BuildContext buildContext, ClickListener? listener) {
     return Opacity(
-      opacity: toDouble(map["opacity"]),
-      alwaysIncludeSemantics: toBool(map["alwaysIncludeSemantics"], false),
-      child: DynamicWidgetBuilder.buildFromMap(
-          map["child"], buildContext, listener),
+      opacity: attr.get("opacity"),
+      alwaysIncludeSemantics: attr.get("alwaysIncludeSemantics"),
+      child: attr.get("child"),
     );
   }
 

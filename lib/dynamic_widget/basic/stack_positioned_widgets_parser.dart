@@ -6,21 +6,28 @@ import 'package:flutter/widgets.dart';
 class PositionedWidgetParser extends WidgetParser {
   @override
   Map<String, List> attrMapping() {
-    return <String, List>{};
+    return <String, List>{
+      "bottom": [double, 0],
+      "height": [double, 0],
+      "left": [double, 0],
+      "right": [double, 0],
+      "top": [double, 0],
+      "width": [double, 0],
+      "child": [Widget, null],
+    };
   }
 
   @override
   Widget parse(
       AttrSet attr, BuildContext buildContext, ClickListener? listener) {
     return Positioned(
-      child: DynamicWidgetBuilder.buildFromMap(
-          map["child"], buildContext, listener)!,
-      top: toDouble(map["top"], null),
-      right: toDouble(map["right"], null),
-      bottom: toDouble(map["bottom"], null),
-      left: toDouble(map["left"], null),
-      width: toDouble(map["width"], null),
-      height: toDouble(map["height"], null),
+      child: attr.get("child"),
+      top: attr.get("top"),
+      right: attr.get("right"),
+      bottom: attr.get("bottom"),
+      left: attr.get("left"),
+      width: attr.get("width"),
+      height: attr.get("height"),
     );
   }
 
@@ -49,25 +56,24 @@ class PositionedWidgetParser extends WidgetParser {
 class StackWidgetParser extends WidgetParser {
   @override
   Map<String, List> attrMapping() {
-    return <String, List>{};
+    return <String, List>{
+      "alignment": [Alignment, Alignment.center],
+      "fit": [StackFit, StackFit.loose],
+      "clipBehavior": [Clip, Clip.hardEdge],
+      "textDirection": [TextDirection, TextDirection.ltr],
+      "children": [Widgets, null],
+    };
   }
 
   @override
   Widget parse(
       AttrSet attr, BuildContext buildContext, ClickListener? listener) {
     return Stack(
-      alignment: map.containsKey("alignment")
-          ? parseAlignment(map["alignment"])
-          : AlignmentDirectional.topStart,
-      textDirection: map.containsKey("textDirection")
-          ? parseTextDirection(map["textDirection"])
-          : null,
-      fit: map.containsKey("fit") ? parseStackFit(map["fit"])! : StackFit.loose,
-      clipBehavior: map.containsKey("clipBehavior")
-          ? parseClip(map["clipBehavior"])!
-          : Clip.hardEdge,
-      children: DynamicWidgetBuilder.buildWidgets(
-          map['children'], buildContext, listener),
+      alignment: attr.get("alignment"),
+      textDirection: attr.get("textDirection"),
+      fit: attr.get("fit"),
+      clipBehavior: attr.get("clipBehavior"),
+      children: attr.get('children'),
     );
   }
 

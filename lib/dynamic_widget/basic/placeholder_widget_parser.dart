@@ -6,19 +6,22 @@ import 'package:flutter/widgets.dart';
 class PlaceholderWidgetParser extends WidgetParser {
   @override
   Map<String, List> attrMapping() {
-    return <String, List>{};
+    return <String, List>{
+      "color": [Color, null],
+      "strokeWidth": [double, 0],
+      "fallbackWidth": [double, 0],
+      "fallbackHeight": [double, 0],
+    };
   }
 
   @override
   Widget parse(
       AttrSet attr, BuildContext buildContext, ClickListener? listener) {
     return Placeholder(
-        color: map.containsKey('color')
-            ? parseHexColor(map['color'])!
-            : const Color(0xFF455A64),
-        strokeWidth: toDouble(map['strokeWidth'], 2.0),
-        fallbackWidth: toDouble(map['fallbackWidth'], 400.0),
-        fallbackHeight: toDouble(map['fallbackHeight'], 400.0));
+        color: attr.get('color'),
+        strokeWidth: attr.get('strokeWidth'),
+        fallbackWidth: attr.get('fallbackWidth'),
+        fallbackHeight: attr.get('fallbackHeight'));
   }
 
   @override

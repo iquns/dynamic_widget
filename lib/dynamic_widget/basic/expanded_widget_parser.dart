@@ -6,16 +6,18 @@ import 'package:flutter/widgets.dart';
 class ExpandedWidgetParser extends WidgetParser {
   @override
   Map<String, List> attrMapping() {
-    return <String, List>{};
+    return <String, List>{
+      "child": [Widget, null],
+      "flex": [int, 0],
+    };
   }
 
   @override
   Widget parse(
       AttrSet attr, BuildContext buildContext, ClickListener? listener) {
     return Expanded(
-      child: DynamicWidgetBuilder.buildFromMap(
-          map["child"], buildContext, listener)!,
-      flex: toInt(map["flex"], 1),
+      child: attr.get("child"),
+      flex: attr.get("flex"),
     );
   }
 

@@ -6,7 +6,14 @@ import 'package:flutter/widgets.dart';
 class OverflowBoxWidgetParser extends WidgetParser {
   @override
   Map<String, List> attrMapping() {
-    return <String, List>{};
+    return <String, List>{
+      "alignment": [Alignment, Alignment.topLeft],
+      "maxHeight": [double, 0],
+      "maxWidth": [double, 0],
+      "minHeight": [double, 0],
+      "minWidth": [double, 0],
+      "child": [Widget, null],
+    };
   }
 
   @override
@@ -27,13 +34,12 @@ class OverflowBoxWidgetParser extends WidgetParser {
   Widget parse(
       AttrSet attr, BuildContext buildContext, ClickListener? listener) {
     return OverflowBox(
-      alignment: parseAlignment(map['alignment']),
-      minWidth: toDouble(map['minWidth'], null),
-      maxWidth: toDouble(map['maxWidth'], null),
-      minHeight: toDouble(map['minHeight'], null),
-      maxHeight: toDouble(map['maxHeight'], null),
-      child: DynamicWidgetBuilder.buildFromMap(
-          map['child'], buildContext, listener),
+      alignment: attr.get('alignment'),
+      minWidth: attr.get('minWidth'),
+      maxWidth: attr.get('maxWidth'),
+      minHeight: attr.get('minHeight'),
+      maxHeight: attr.get('maxHeight'),
+      child: attr.get('child'),
     );
   }
 

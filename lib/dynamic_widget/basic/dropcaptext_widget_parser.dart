@@ -7,46 +7,46 @@ import 'package:flutter/material.dart';
 class DropCapTextParser extends WidgetParser {
   @override
   Map<String, List> attrMapping() {
-    return <String, List>{};
+    return <String, List>{
+      "data": [String, ""],
+      "selectable": [bool, true],
+      "mode": [DropCapMode, DropCapMode.inside],
+      "style": [TextStyle, null],
+      "dropCapStyle": [TextStyle, null],
+      "textAlign": [TextAlign, TextAlign.left],
+      "dropCap": [DropCap, null],
+      "dropCapPadding": [EdgeInsetsGeometry, ""],
+      "dropCapChars": [int, 0],
+      "forceNoDescent": [bool, true],
+      "parseInlineMarkdown": [bool, true],
+      "textDirection": [TextDirection, TextDirection.ltr],
+      "overflow": [TextOverflow, TextOverflow.ellipsis],
+      "maxLines": [int, 0],
+      "dropCapPosition": [DropCapPosition, DropCapPosition.start],
+    };
   }
 
   @override
   Widget parse(
       AttrSet attr, BuildContext buildContext, ClickListener? listener) {
     return DropCapText(
-      data: toStr(map['data'], null),
-      selectable: toBool(map['selectable'], false),
-      mode: map.containsKey('mode')
-          ? parseDropCapMode(map['mode'])
-          : DropCapMode.inside,
-      style: map.containsKey('style') ? parseTextStyle(map['style']) : null,
-      dropCapStyle: map.containsKey('dropCapStyle')
-          ? parseTextStyle(map['dropCapStyle'])
-          : null,
-      textAlign: map.containsKey('textAlign')
-          ? parseTextAlign(map['textAlign'])
-          : TextAlign.start,
-      dropCap: map.containsKey('dropCap')
-          ? parseDropCap(map['dropCap'], buildContext, listener)
-          : null,
-      dropCapPadding: map.containsKey('dropCapPadding')
-          ? parseEdgeInsetsGeometry(map['dropCapPadding']) as EdgeInsets?
-          : EdgeInsets.zero,
+      data: attr.get('data'),
+      selectable: attr.get('selectable'),
+      mode: attr.get('mode'),
+      style: attr.get('style'),
+      dropCapStyle: attr.get('dropCapStyle'),
+      textAlign: attr.get('textAlign'),
+      dropCap: attr.get('dropCap'),
+      dropCapPadding: attr.get('dropCapPadding'),
       indentation: Offset.zero,
       //todo: actually add this
-      dropCapChars: toInt(map['dropCapChars'], 1),
-      forceNoDescent: toBool(map['forceNoDescent'], false),
-      parseInlineMarkdown: toBool(map['parseInlineMarkdown'], false),
-      textDirection: map.containsKey('textDirection')
-          ? parseTextDirection(map['textDirection'])
-          : TextDirection.ltr,
-      overflow: map.containsKey('overflow')
-          ? parseTextOverflow(map['overflow'])
-          : TextOverflow.clip,
-      maxLines: toInt(map['maxLines'], null),
-      dropCapPosition: map.containsKey('dropCapPosition')
-          ? parseDropCapPosition(map['dropCapPosition'])
-          : null,
+      dropCapChars: attr.get('dropCapChars'),
+      forceNoDescent: attr.get('forceNoDescent'),
+      parseInlineMarkdown: attr.get('parseInlineMarkdown'),
+      textDirection: attr.get('textDirection'),
+      overflow: attr.get('overflow'),
+      maxLines: attr.get('maxLines'),
+      dropCapPosition: attr.get('dropCapPosition'),
     );
   }
 

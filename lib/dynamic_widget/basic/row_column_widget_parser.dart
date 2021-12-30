@@ -6,33 +6,28 @@ import 'package:flutter/widgets.dart';
 class RowWidgetParser extends WidgetParser {
   @override
   Map<String, List> attrMapping() {
-    return <String, List>{};
+    return <String, List>{
+      "crossAxisAlignment": [CrossAxisAlignment, CrossAxisAlignment.center],
+      "mainAxisAlignment": [MainAxisAlignment, MainAxisAlignment.start],
+      "mainAxisSize": [MainAxisSize, MainAxisSize.max],
+      "textBaseline": [TextBaseline, TextBaseline.ideographic],
+      "textDirection": [TextDirection, TextDirection.ltr],
+      "verticalDirection": [VerticalDirection, VerticalDirection.down],
+      "children": [Widgets, null],
+    };
   }
 
   @override
   Widget parse(
       AttrSet attr, BuildContext buildContext, ClickListener? listener) {
     return Row(
-      crossAxisAlignment: map.containsKey('crossAxisAlignment')
-          ? parseCrossAxisAlignment(map['crossAxisAlignment'])
-          : CrossAxisAlignment.center,
-      mainAxisAlignment: map.containsKey('mainAxisAlignment')
-          ? parseMainAxisAlignment(map['mainAxisAlignment'])
-          : MainAxisAlignment.start,
-      mainAxisSize: map.containsKey('mainAxisSize')
-          ? parseMainAxisSize(map['mainAxisSize'])
-          : MainAxisSize.max,
-      textBaseline: map.containsKey('textBaseline')
-          ? parseTextBaseline(map['textBaseline'])
-          : null,
-      textDirection: map.containsKey('textDirection')
-          ? parseTextDirection(map['textDirection'])
-          : null,
-      verticalDirection: map.containsKey('verticalDirection')
-          ? parseVerticalDirection(map['verticalDirection'])
-          : VerticalDirection.down,
-      children: DynamicWidgetBuilder.buildWidgets(
-          map['children'], buildContext, listener),
+      crossAxisAlignment: attr.get('crossAxisAlignment'),
+      mainAxisAlignment: attr.get('mainAxisAlignment'),
+      mainAxisSize: attr.get('mainAxisSize'),
+      textBaseline: attr.get('textBaseline'),
+      textDirection: attr.get('textDirection'),
+      verticalDirection: attr.get('verticalDirection'),
+      children: attr.get('children'),
     );
   }
 
@@ -72,33 +67,28 @@ class RowWidgetParser extends WidgetParser {
 class ColumnWidgetParser extends WidgetParser {
   @override
   Map<String, List> attrMapping() {
-    return <String, List>{};
+    return <String, List>{
+      "crossAxisAlignment": [CrossAxisAlignment, CrossAxisAlignment.center],
+      "mainAxisAlignment": [MainAxisAlignment, MainAxisAlignment.start],
+      "mainAxisSize": [MainAxisSize, MainAxisSize.max],
+      "textBaseline": [TextBaseline, TextBaseline.ideographic],
+      "textDirection": [TextDirection, TextDirection.ltr],
+      "verticalDirection": [VerticalDirection, VerticalDirection.down],
+      "children": [Widgets, null],
+    };
   }
 
   @override
   Widget parse(
       AttrSet attr, BuildContext buildContext, ClickListener? listener) {
     return Column(
-      crossAxisAlignment: map.containsKey('crossAxisAlignment')
-          ? parseCrossAxisAlignment(map['crossAxisAlignment'])
-          : CrossAxisAlignment.center,
-      mainAxisAlignment: map.containsKey('mainAxisAlignment')
-          ? parseMainAxisAlignment(map['mainAxisAlignment'])
-          : MainAxisAlignment.start,
-      mainAxisSize: map.containsKey('mainAxisSize')
-          ? parseMainAxisSize(map['mainAxisSize'])
-          : MainAxisSize.max,
-      textBaseline: map.containsKey('textBaseline')
-          ? parseTextBaseline(map['textBaseline'])
-          : null,
-      textDirection: map.containsKey('textDirection')
-          ? parseTextDirection(map['textDirection'])
-          : null,
-      verticalDirection: map.containsKey('verticalDirection')
-          ? parseVerticalDirection(map['verticalDirection'])
-          : VerticalDirection.down,
-      children: DynamicWidgetBuilder.buildWidgets(
-          map['children'], buildContext, listener),
+      crossAxisAlignment: attr.get('crossAxisAlignment'),
+      mainAxisAlignment: attr.get('mainAxisAlignment'),
+      mainAxisSize: attr.get('mainAxisSize'),
+      textBaseline: attr.get('textBaseline'),
+      textDirection: attr.get('textDirection'),
+      verticalDirection: attr.get('verticalDirection'),
+      children: attr.get('children'),
     );
   }
 

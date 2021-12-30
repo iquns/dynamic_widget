@@ -6,19 +6,20 @@ import 'package:flutter/widgets.dart';
 class FittedBoxWidgetParser extends WidgetParser {
   @override
   Map<String, List> attrMapping() {
-    return <String, List>{};
+    return <String, List>{
+      "alignment": [Alignment, Alignment.center],
+      "fit": [String, BoxFit.contain],
+      "child": [Widget, null],
+    };
   }
 
   @override
   Widget parse(
       AttrSet attr, BuildContext buildContext, ClickListener? listener) {
     return FittedBox(
-      alignment: map.containsKey("alignment")
-          ? parseAlignment(map["alignment"])
-          : Alignment.center,
-      fit: map.containsKey("fit") ? parseBoxFit(map["fit"])! : BoxFit.contain,
-      child: DynamicWidgetBuilder.buildFromMap(
-          map["child"], buildContext, listener),
+      alignment: attr.get("alignment"),
+      fit: attr.get("fit")!,
+      child: attr.get("child"),
     );
   }
 

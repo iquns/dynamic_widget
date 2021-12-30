@@ -1,5 +1,5 @@
 import 'package:dynamic_widget/dynamic_widget.dart';
-import 'package:dynamic_widget/dynamic_widget/basic/selectabletext_widget_parser.dart';
+import 'package:dynamic_widget/dynamic_widget/basic/text_widget_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/common/rounded_rectangle_border_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/drop_cap_text.dart';
 import 'package:dynamic_widget/dynamic_widget/icons_helper.dart';
@@ -65,7 +65,7 @@ class AttrSet {
       TextDirection: (v) => parseTextDirection(v),
       TextAlign: (v) => parseTextAlign(v),
       TextBaseline: (v) => parseTextBaseline(toStr(v, "")),
-      TextSpan: (v) => SelectableTextSpanParser().parse(v, listener),
+      TextSpan: (v) => TextSpanParser().parse(this, buildContext, listener),
       RoundedRectangleBorder: (v) => RoundedRectangleBorderParser.parse(v),
       IconData: (v) => getIconUsingPrefix(name: v),
       BoxConstraints: (v) => parseBoxConstraints(v),
@@ -78,6 +78,8 @@ class AttrSet {
       FilterQuality: (v) => parseFilterQuality(v),
       VerticalDirection: (v) => parseVerticalDirection(v),
       StackFit: (v) => parseStackFit(v),
+      WrapAlignment: (v) => parseWrapAlignment(v),
+      WrapCrossAlignment: (v) => parseWrapCrossAlignment(v),
     };
 
     var method = methodMap[attrType];

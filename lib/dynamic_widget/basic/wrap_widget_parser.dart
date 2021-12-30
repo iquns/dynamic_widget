@@ -6,35 +6,32 @@ import 'package:flutter/widgets.dart';
 class WrapWidgetParser extends WidgetParser {
   @override
   Map<String, List> attrMapping() {
-    return <String, List>{};
+    return <String, List>{
+      "alignment": [WrapAlignment, WrapAlignment.start],
+      "crossAxisAlignment": [WrapCrossAlignment, WrapCrossAlignment.start],
+      "direction": [Axis, Axis.horizontal],
+      "runAlignment": [WrapAlignment, WrapAlignment.start],
+      "runSpacing": [double, 0],
+      "spacing": [double, 0],
+      "textDirection": [TextDirection, TextDirection.ltr],
+      "verticalDirection": [VerticalDirection, VerticalDirection.down],
+      "children": [Widgets, null],
+    };
   }
 
   @override
   Widget parse(
       AttrSet attr, BuildContext buildContext, ClickListener? listener) {
     return Wrap(
-      direction: map.containsKey("direction")
-          ? parseAxis(map["direction"])
-          : Axis.horizontal,
-      alignment: map.containsKey("alignment")
-          ? parseWrapAlignment(map["alignment"])
-          : WrapAlignment.start,
-      spacing: toDouble(map["spacing"], 0.0),
-      runAlignment: map.containsKey("runAlignment")
-          ? parseWrapAlignment(map["runAlignment"])
-          : WrapAlignment.start,
-      runSpacing: toDouble(map["runSpacing"], 0.0),
-      crossAxisAlignment: map.containsKey("crossAxisAlignment")
-          ? parseWrapCrossAlignment(map["crossAxisAlignment"])
-          : WrapCrossAlignment.start,
-      textDirection: map.containsKey("textDirection")
-          ? parseTextDirection(map["textDirection"])
-          : null,
-      verticalDirection: map.containsKey("verticalDirection")
-          ? parseVerticalDirection(map["verticalDirection"])
-          : VerticalDirection.down,
-      children: DynamicWidgetBuilder.buildWidgets(
-          map['children'], buildContext, listener),
+      direction: attr.get("direction"),
+      alignment: attr.get("alignment"),
+      spacing: attr.get("spacing"),
+      runAlignment: attr.get("runAlignment"),
+      runSpacing: attr.get("runSpacing"),
+      crossAxisAlignment: attr.get("crossAxisAlignment"),
+      textDirection: attr.get("textDirection"),
+      verticalDirection: attr.get("verticalDirection"),
+      children: attr.get('children'),
     );
   }
 

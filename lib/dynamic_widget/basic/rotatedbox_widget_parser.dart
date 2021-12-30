@@ -6,12 +6,10 @@ import 'package:flutter/widgets.dart';
 class RotatedBoxWidgetParser extends WidgetParser {
   @override
   Map<String, List> attrMapping() {
-    return <String, List>{};
-  }
-
-  @override
-  Map<String, List> attrMapping() {
-    return <String, List>{};
+    return <String, List>{
+      "quarterTurns": [int, 0],
+      "child": [Widget, null],
+    };
   }
 
   @override
@@ -28,9 +26,8 @@ class RotatedBoxWidgetParser extends WidgetParser {
   Widget parse(
       AttrSet attr, BuildContext buildContext, ClickListener? listener) {
     return RotatedBox(
-      quarterTurns: toInt(map['quarterTurns']),
-      child: DynamicWidgetBuilder.buildFromMap(
-          map["child"], buildContext, listener),
+      quarterTurns: attr.get('quarterTurns'),
+      child: attr.get("child"),
     );
   }
 

@@ -91,7 +91,8 @@ class DynamicWidgetBuilder {
     TextButtonParser(),
     RotatedBoxWidgetParser(),
     CardParser(),
-    SingleChildScrollViewParser()
+    SingleChildScrollViewParser(),
+    TextSpanParser(),
   ];
 
   static final _widgetNameParserMap = new LinkedHashMap<String, dynamic>(

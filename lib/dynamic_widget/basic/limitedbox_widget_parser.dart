@@ -6,7 +6,11 @@ import 'package:flutter/widgets.dart';
 class LimitedBoxWidgetParser extends WidgetParser {
   @override
   Map<String, List> attrMapping() {
-    return <String, List>{};
+    return <String, List>{
+      "maxHeight": [double, 0],
+      "maxWidth": [double, 0],
+      "child": [Widget, null],
+    };
   }
 
   @override
@@ -28,10 +32,9 @@ class LimitedBoxWidgetParser extends WidgetParser {
   Widget parse(
       AttrSet attr, BuildContext buildContext, ClickListener? listener) {
     return LimitedBox(
-      maxWidth: toDouble(map['maxWidth'], double.infinity),
-      maxHeight: toDouble(map['maxHeight'], double.infinity),
-      child: DynamicWidgetBuilder.buildFromMap(
-          map['child'], buildContext, listener),
+      maxWidth: attr.get('maxWidth'),
+      maxHeight: attr.get('maxHeight'),
+      child: attr.get('child'),
     );
   }
 

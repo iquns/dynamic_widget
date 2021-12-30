@@ -12,34 +12,33 @@ class ContainerWidgetParser extends WidgetParser {
 
   @override
   Map<String, List> attrMapping() {
-    return <String, List>{};
+    return <String, List>{
+      "alignment": [Alignment, Alignment.topLeft],
+      "margin": [EdgeInsetsGeometry, null],
+      "padding": [EdgeInsetsGeometry, null],
+      "color": [Color, null],
+      "width": [double, 0],
+      "height": [double, 0],
+      "constraints": [BoxConstraints, null],
+      "child": [Widget, null],
+      "click_event": [String, ""],
+    };
   }
 
   @override
   Widget parse(
       AttrSet attr, BuildContext buildContext, ClickListener? listener) {
-    Alignment alignment = parseAlignment(map['alignment']);
-    Color? color = parseHexColor(map['color']);
-    BoxConstraints constraints = parseBoxConstraints(map['constraints']);
-    //TODO: decoration, foregroundDecoration and transform properties to be implemented.
-    EdgeInsetsGeometry? margin = parseEdgeInsetsGeometry(map['margin']);
-    EdgeInsetsGeometry? padding = parseEdgeInsetsGeometry(map['padding']);
-    Map<String, dynamic>? childMap = map['child'];
-    Widget? child = childMap == null
-        ? null
-        : DynamicWidgetBuilder.buildFromMap(childMap, buildContext, listener);
-
-    String? clickEvent = toStr(map['click_event'], null);
+    String? clickEvent = attr.get('click_event');
 
     var containerWidget = Container(
-      alignment: alignment,
-      padding: padding,
-      color: color,
-      margin: margin,
-      width: toDouble(map['width'], null),
-      height: toDouble(map['height'], null),
-      constraints: constraints,
-      child: child,
+      alignment: attr.get('alignment'),
+      padding: attr.get('padding'),
+      color: attr.get('color'),
+      margin: attr.get('margin'),
+      width: attr.get('width'),
+      height: attr.get('height'),
+      constraints: attr.get('constraints'),
+      child: attr.get('child'),
     );
 
     if (listener != null && clickEvent != null) {

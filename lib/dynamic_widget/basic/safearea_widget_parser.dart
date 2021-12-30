@@ -6,30 +6,27 @@ import 'package:flutter/widgets.dart';
 class SafeAreaWidgetParser extends WidgetParser {
   @override
   Map<String, List> attrMapping() {
-    return <String, List>{};
+    return <String, List>{
+      "bottom": [bool, true],
+      "right": [bool, true],
+      "top": [bool, true],
+      "left": [bool, true],
+      "minimum": [EdgeInsetsGeometry, null],
+      "child": [Widget, null],
+    };
   }
 
   @override
   Widget parse(
       AttrSet attr, BuildContext buildContext, ClickListener? listener) {
-    var left = toBool(map["left"], true);
-    var right = toBool(map["right"], true);
-    var top = toBool(map["top"], true);
-    var bottom = toBool(map["bottom"], true);
-    var edgeInsets = map.containsKey("minimum")
-        ? parseEdgeInsetsGeometry(map['minimum'])!
-        : EdgeInsets.zero;
-    var maintainBottomViewPadding =
-        toBool(map["maintainBottomViewPadding"], false);
     return SafeArea(
-      left: left,
-      right: right,
-      top: top,
-      bottom: bottom,
-      minimum: edgeInsets as EdgeInsets,
-      maintainBottomViewPadding: maintainBottomViewPadding,
-      child: DynamicWidgetBuilder.buildFromMap(
-          map["child"], buildContext, listener)!,
+      left: attr.get('left'),
+      right: attr.get('right'),
+      top: attr.get('top'),
+      bottom: attr.get('bottom'),
+      minimum: attr.get('minimum'),
+      maintainBottomViewPadding: attr.get('maintainBottomViewPadding'),
+      child: attr.get("child"),
     );
   }
 

@@ -7,15 +7,16 @@ import 'package:flutter/widgets.dart';
 class ExpandedSizedBoxWidgetParser extends WidgetParser {
   @override
   Map<String, List> attrMapping() {
-    return <String, List>{};
+    return <String, List>{
+      "child": [Widget, null],
+    };
   }
 
   @override
   Widget parse(
       AttrSet attr, BuildContext buildContext, ClickListener? listener) {
     return SizedBox.expand(
-      child: DynamicWidgetBuilder.buildFromMap(
-          map["child"], buildContext, listener),
+      child: attr.get("child"),
     );
   }
 
@@ -35,17 +36,20 @@ class ExpandedSizedBoxWidgetParser extends WidgetParser {
 class SizedBoxWidgetParser extends WidgetParser {
   @override
   Map<String, List> attrMapping() {
-    return <String, List>{};
+    return <String, List>{
+      "width": [double, 0],
+      "height": [double, 0],
+      "child": [Widget, null],
+    };
   }
 
   @override
   Widget parse(
       AttrSet attr, BuildContext buildContext, ClickListener? listener) {
     return SizedBox(
-      width: toDouble(map["width"]),
-      height: toDouble(map["height"]),
-      child: DynamicWidgetBuilder.buildFromMap(
-          map["child"], buildContext, listener),
+      width: attr.get("width"),
+      height: attr.get("height"),
+      child: attr.get("child"),
     );
   }
 

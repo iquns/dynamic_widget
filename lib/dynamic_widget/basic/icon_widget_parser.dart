@@ -2,27 +2,30 @@ import 'package:dynamic_widget/dynamic_widget.dart';
 import 'package:dynamic_widget/dynamic_widget/attr_helper.dart';
 import 'package:dynamic_widget/dynamic_widget/icons_helper.dart';
 import 'package:dynamic_widget/dynamic_widget/utils.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class IconWidgetParser extends WidgetParser {
   @override
   Map<String, List> attrMapping() {
-    return <String, List>{};
+    return <String, List>{
+      "data": [IconData, Icons.android],
+      "size": [double, ""],
+      "color": [Color, ""],
+      "semanticLabel": [String, ""],
+      "textDirection": [TextDirection, TextDirection.ltr],
+    };
   }
 
   @override
   Widget parse(
       AttrSet attr, BuildContext buildContext, ClickListener? listener) {
     return Icon(
-      map.containsKey('data')
-          ? getIconUsingPrefix(name: map['data'])
-          : Icons.android,
-      size: toDouble(map['size'], null),
-      color: map.containsKey('color') ? parseHexColor(map['color']) : null,
-      semanticLabel: toStr(map['semanticLabel'], null),
-      textDirection: map.containsKey('textDirection')
-          ? parseTextDirection(map['textDirection'])
-          : null,
+      attr.get('data'),
+      size: attr.get('size'),
+      color: attr.get('color'),
+      semanticLabel: attr.get('semanticLabel'),
+      textDirection: attr.get('textDirection'),
     );
   }
 

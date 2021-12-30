@@ -6,7 +6,10 @@ import 'package:flutter/widgets.dart';
 class OffstageWidgetParser extends WidgetParser {
   @override
   Map<String, List> attrMapping() {
-    return <String, List>{};
+    return <String, List>{
+      "offstage": [bool, true],
+      "child": [Widget, null],
+    };
   }
 
   @override
@@ -23,9 +26,8 @@ class OffstageWidgetParser extends WidgetParser {
   Widget parse(
       AttrSet attr, BuildContext buildContext, ClickListener? listener) {
     return Offstage(
-      offstage: toBool(map['offstage'], true),
-      child: DynamicWidgetBuilder.buildFromMap(
-          map['child'], buildContext, listener),
+      offstage: attr.get('offstage'),
+      child: attr.get('child'),
     );
   }
 

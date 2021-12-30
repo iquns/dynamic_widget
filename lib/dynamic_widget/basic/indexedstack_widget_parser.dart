@@ -6,23 +6,22 @@ import 'package:flutter/widgets.dart';
 class IndexedStackWidgetParser extends WidgetParser {
   @override
   Map<String, List> attrMapping() {
-    return <String, List>{};
+    return <String, List>{
+      "index": [int, 0],
+      "alignment": [Alignment, Alignment.center],
+      "textDirection": [TextDirection, null],
+      "children": [Widgets, null],
+    };
   }
 
   @override
   Widget parse(
       AttrSet attr, BuildContext buildContext, ClickListener? listener) {
     return IndexedStack(
-      index: toInt(map["index"], 0),
-      alignment: map.containsKey("alignment")
-          ? parseAlignment(map["alignment"])
-          : AlignmentDirectional.topStart,
-      textDirection: map.containsKey("textDirection")
-          ? parseTextDirection(map["textDirection"])
-          : null,
-      children: DynamicWidgetBuilder.buildWidgets(
-          map['children'], buildContext, listener),
-    );
+        index: attr.get("index"),
+        alignment: attr.get("alignment"),
+        textDirection: attr.get("textDirection"),
+        children: attr.get('children'));
   }
 
   @override
