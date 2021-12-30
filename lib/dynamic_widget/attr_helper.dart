@@ -1,10 +1,11 @@
+import 'dart:core';
+
 import 'package:dynamic_widget/dynamic_widget.dart';
 import 'package:dynamic_widget/dynamic_widget/basic/text_widget_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/common/rounded_rectangle_border_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/drop_cap_text.dart';
 import 'package:dynamic_widget/dynamic_widget/icons_helper.dart';
 import 'package:dynamic_widget/dynamic_widget/utils.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 typedef FunctionConvertAttr = dynamic Function(dynamic v);
@@ -23,7 +24,6 @@ class AttrSet {
 
   AttrSet(this.mapping, this.values, this.buildContext, this.listener);
 
-
   dynamic get(String key) {
     List? set = this.mapping[key];
     if (set == null) {
@@ -38,7 +38,7 @@ class AttrSet {
     var attrFormatter = set.length > 2 ? (set[2] ?? (v) => v) : (v) => v;
 
     // not contains
-    if (!values.containsKey(key)) {
+    if (!values.containsKey(key) || values[key] == null) {
       // print("UnSetField:" + key);
       return attrFormatter(attrDefault);
     }
@@ -94,41 +94,34 @@ class AttrSet {
     }
     var value = method(values[key] ?? attrDefault);
 
-/*
-    if (attrType == String) {
-      value = toStr(values[key], attrDefault);
-    } else if (attrType == Widget) {
-      // print(key + ": widget");
-      // build widget
-      value = DynamicWidgetBuilder.buildFromMap(
-          values[key], buildContext, listener);
-    } else if (attrType == Widgets) {
-      // print(key + ": widgets");
-      value =
-          DynamicWidgetBuilder.buildWidgets(values[key], buildContext, listener)
-              as List<Widget>;
-    } else if (attrType == bool) {
-      // print(key + ": bool");
-      value = toBool(values[key], attrDefault);
-    } else if (attrType == int) {
-      // print(key + ": int");
-      value = toInt(values[key], attrDefault);
-    } else if (attrType == Color) {
-      // print(key + ": color");
-      value = parseHexColor(values[key]);
-    } else if (attrType == Alignment) {
-      value = parseAlignment(values[key]);
-    } else if (attrType == TextBaseline) {
-      value = values[key] == "alphabetic"
-          ? TextBaseline.alphabetic
-          : TextBaseline.ideographic;
-    } else if (attrType == EdgeInsetsGeometry) {
-      value = parseEdgeInsetsGeometry(values[key]);
-    } else if (attrType == Axis) {
-      value = "horizontal" == values[key] ? Axis.horizontal : Axis.vertical;
-    } else if (attrType == Clip) {
-      value = parseClip(values[key]);
-    }*/
     return attrFormatter(value);
+  }
+}
+
+class AttrFormatter {
+  static color(v) => v == null ? null : MaterialStateProperty.all(v as Color);
+
+  static padding(v) =>
+      v == null ? null : MaterialStateProperty.all(v as EdgeInsetsGeometry);
+
+  static textStyle(v) =>
+      v == null ? null : MaterialStateProperty.all(v as TextStyle);
+
+  static double_(double? v) => v == null ? null : MaterialStateProperty.all(v);
+
+  static BorderRadius borderRadius(v) {
+    // support space or ,
+    List radius =
+        v.toString().replaceAll(",", " ").replaceAll(r'\s+', " ").split(" ");
+    var len = radius.length;
+    double topLeft = toDouble(radius[0], 0.0);
+    double topRight = len > 1 ? toDouble(radius[1]) : 0.0;
+    double bottomLeft = len > 2 ? toDouble(radius[2]) : 0.0;
+    double bottomRight = len > 3 ? toDouble(radius[3]) : 0.0;
+    return BorderRadius.only(
+        topLeft: Radius.circular(topLeft),
+        topRight: Radius.circular(topRight),
+        bottomLeft: Radius.circular(bottomLeft),
+        bottomRight: Radius.circular(bottomRight));
   }
 }

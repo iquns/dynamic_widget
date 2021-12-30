@@ -1,6 +1,5 @@
 import 'package:dynamic_widget/dynamic_widget.dart';
 import 'package:dynamic_widget/dynamic_widget/attr_helper.dart';
-import 'package:dynamic_widget/dynamic_widget/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -8,10 +7,10 @@ class DividerWidgetParser extends WidgetParser {
   @override
   Map<String, List> attrMapping() {
     return <String, List>{
-      "height": [double, 0.0],
-      "thickness": [double, 0.0],
-      "indent": [double, 0.0],
-      "endIndent": [double, 0.0],
+      "height": [double, null],
+      "thickness": [double, null],
+      "indent": [double, null],
+      "endIndent": [double, null],
       "color": [Color, null],
     };
   }
@@ -39,7 +38,7 @@ class DividerWidgetParser extends WidgetParser {
       thickness: attr.get("thickness"),
       indent: attr.get("indent"),
       endIndent: attr.get("endIndent"),
-      color: parseHexColor(attr.get('color')),
+      color: attr.get('color'),
     );
   }
 

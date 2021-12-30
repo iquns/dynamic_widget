@@ -92,17 +92,13 @@ class ElevatedButtonParser extends WidgetParser {
   Map<String, List> attrMapping() {
     return <String, List>{
       "client_event": [String, ""],
-      "foregroundColor": [Color, null, (v) => MaterialStateProperty.all(v)],
-      "backgroundColor": [Color, null, (v) => MaterialStateProperty.all(v)],
-      "overlayColor": [Color, null, (v) => MaterialStateProperty.all(v)],
-      "shadowColor": [Color, null, (v) => MaterialStateProperty.all(v)],
-      "elevation": [Color, null, (v) => MaterialStateProperty.all(v)],
-      "padding": [
-        EdgeInsetsGeometry,
-        null,
-        (v) => MaterialStateProperty.all(v)
-      ],
-      "textStyle": [TextStyle, null, (v) => MaterialStateProperty.all(v)],
+      "foregroundColor": [Color, null, AttrFormatter.color],
+      "backgroundColor": [Color, null, AttrFormatter.color],
+      "overlayColor": [Color, null, AttrFormatter.color],
+      "shadowColor": [Color, null, AttrFormatter.color],
+      "elevation": [double, null, AttrFormatter.double_],
+      "padding": [EdgeInsetsGeometry, null, AttrFormatter.padding],
+      "textStyle": [TextStyle, null, AttrFormatter.textStyle],
       "alignment": [Alignment, null],
       "child": [Widget, null],
     };
@@ -188,41 +184,13 @@ class TextButtonParser extends WidgetParser {
   Map<String, List> attrMapping() {
     return <String, List>{
       "client_event": [String, ""],
-      "foregroundColor": [
-        Color,
-        null,
-        (v) => v ? MaterialStateProperty.all(v) : null
-      ],
-      "backgroundColor": [
-        Color,
-        null,
-        (v) => v ? MaterialStateProperty.all(v) : null
-      ],
-      "overlayColor": [
-        Color,
-        null,
-        (v) => v ? MaterialStateProperty.all(v) : null
-      ],
-      "shadowColor": [
-        Color,
-        null,
-        (v) => v ? MaterialStateProperty.all(v) : null
-      ],
-      "elevation": [
-        Color,
-        null,
-        (v) => v ? MaterialStateProperty.all(v) : null
-      ],
-      "padding": [
-        EdgeInsetsGeometry,
-        null,
-        (v) => MaterialStateProperty.all(v)
-      ],
-      "textStyle": [
-        TextStyle,
-        null,
-        (v) => (v) => v ? MaterialStateProperty.all(v) : null
-      ],
+      "foregroundColor": [Color, null, AttrFormatter.color],
+      "backgroundColor": [Color, null, AttrFormatter.color],
+      "overlayColor": [Color, null, AttrFormatter.color],
+      "shadowColor": [Color, null, AttrFormatter.color],
+      "elevation": [double, null, AttrFormatter.double_],
+      "padding": [EdgeInsetsGeometry, null, AttrFormatter.padding],
+      "textStyle": [TextStyle, null, AttrFormatter.textStyle],
       "alignment": [Alignment, null],
       "child": [Widget, null],
     };

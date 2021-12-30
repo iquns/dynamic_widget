@@ -386,9 +386,9 @@ EdgeInsetsGeometry? parseEdgeInsetsGeometry(String? edgeInsetsGeometryString) {
   var values = edgeInsetsGeometryString.split(",");
   return EdgeInsets.only(
       left: toDouble(values[0]),
-      top: toDouble(values[1]),
-      right: toDouble(values[2]),
-      bottom: toDouble(values[3]));
+      top: values.length > 1 ? toDouble(values[1]) : 0.0,
+      right: values.length > 2 ? toDouble(values[2]) : 0.0,
+      bottom: values.length > 3 ? toDouble(values[3]) : 0.0);
 }
 
 CrossAxisAlignment parseCrossAxisAlignment(String? crossAxisAlignmentString) {

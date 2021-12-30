@@ -13,28 +13,7 @@ class ClipRRectWidgetParser extends WidgetParser {
   @override
   Map<String, List> attrMapping() {
     return <String, List>{
-      "borderRadius": [
-        String,
-        "",
-        (v) {
-          // support space or ,
-          List radius = v
-              .toString()
-              .replaceAll(",", " ")
-              .replaceAll(r'\s+', " ")
-              .split(" ");
-          var len = radius.length;
-          double topLeft = toDouble(radius[0]);
-          double topRight = len > 1 ? toDouble(radius[1]) : 0.0;
-          double bottomLeft = len > 2 ? toDouble(radius[2]) : 0.0;
-          double bottomRight = len > 3 ? toDouble(radius[3]) : 0.0;
-          return BorderRadius.only(
-              topLeft: Radius.circular(topLeft),
-              topRight: Radius.circular(topRight),
-              bottomLeft: Radius.circular(bottomLeft),
-              bottomRight: Radius.circular(bottomRight));
-        }
-      ],
+      "borderRadius": [String, "", AttrFormatter.borderRadius],
       "clipBehavior": [Clip, Clip.antiAlias],
       "child": [Widget, null],
     };

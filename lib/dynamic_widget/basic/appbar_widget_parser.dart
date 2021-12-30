@@ -50,7 +50,7 @@ class AppBarWidgetParser extends WidgetParser {
     return {
       "title": [Widget, null],
       "leading": [Widget, null],
-      "actions": [Widgets, <dynamic>[]],
+      "actions": [Widgets, null],
       "centerTitle": [bool, false],
       "backgroundColor": [Color, null],
     };

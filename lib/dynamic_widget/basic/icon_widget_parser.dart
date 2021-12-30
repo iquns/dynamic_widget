@@ -10,9 +10,9 @@ class IconWidgetParser extends WidgetParser {
   Map<String, List> attrMapping() {
     return <String, List>{
       "data": [IconData, Icons.android],
-      "size": [double, ""],
-      "color": [Color, ""],
-      "semanticLabel": [String, ""],
+      "size": [double, null],
+      "color": [Color, null],
+      "semanticLabel": [String, null],
       "textDirection": [TextDirection, TextDirection.ltr],
     };
   }

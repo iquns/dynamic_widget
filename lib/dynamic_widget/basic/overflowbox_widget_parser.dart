@@ -7,11 +7,11 @@ class OverflowBoxWidgetParser extends WidgetParser {
   @override
   Map<String, List> attrMapping() {
     return <String, List>{
-      "alignment": [Alignment, Alignment.topLeft],
-      "maxHeight": [double, 0.0],
-      "maxWidth": [double, 0.0],
-      "minHeight": [double, 0.0],
-      "minWidth": [double, 0.0],
+      "alignment": [Alignment, Alignment.center],
+      "maxHeight": [double, null],
+      "maxWidth": [double, null],
+      "minHeight": [double, null],
+      "minWidth": [double, null],
       "child": [Widget, null],
     };
   }

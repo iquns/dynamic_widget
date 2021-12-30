@@ -7,12 +7,12 @@ class PositionedWidgetParser extends WidgetParser {
   @override
   Map<String, List> attrMapping() {
     return <String, List>{
-      "bottom": [double, 0.0],
-      "height": [double, 0.0],
-      "left": [double, 0.0],
-      "right": [double, 0.0],
-      "top": [double, 0.0],
-      "width": [double, 0.0],
+      "bottom": [double, null],
+      "height": [double, null],
+      "left": [double, null],
+      "right": [double, null],
+      "top": [double, null],
+      "width": [double, null],
       "child": [Widget, null],
     };
   }
@@ -57,10 +57,10 @@ class StackWidgetParser extends WidgetParser {
   @override
   Map<String, List> attrMapping() {
     return <String, List>{
-      "alignment": [Alignment, Alignment.center],
+      "alignment": [Alignment, AlignmentDirectional.topStart],
+      "textDirection": [TextDirection, null],
       "fit": [StackFit, StackFit.loose],
       "clipBehavior": [Clip, Clip.hardEdge],
-      "textDirection": [TextDirection, TextDirection.ltr],
       "children": [Widgets, null],
     };
   }

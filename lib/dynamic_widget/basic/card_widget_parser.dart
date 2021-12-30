@@ -12,6 +12,22 @@ class CardParser extends WidgetParser {
   Type get widgetType => Card;
 
   @override
+  Map<String, List> attrMapping() {
+    return <String, List>{
+      "color": [Color, null],
+      "shadowColor": [Color, null],
+      "elevation": [double, null],
+      "borderOnForeground": [bool, false],
+      "margin": [EdgeInsetsGeometry, null],
+      "semanticContainer": [bool, false],
+      "clipBehavior": [Clip, Clip.antiAlias],
+      "child": [Widget, null],
+      "shape": [RoundedRectangleBorder, null],
+    };
+  }
+
+
+  @override
   Map<String, dynamic>? export(Widget? widget, BuildContext? buildContext) {
     if (widget != null && widget is Card) {
       final EdgeInsets? margin = widget.margin as EdgeInsets?;
@@ -53,21 +69,6 @@ class CardParser extends WidgetParser {
 
       return map;
     }
-  }
-
-  @override
-  Map<String, List> attrMapping() {
-    return <String, List>{
-      "color": [Color, null],
-      "shadowColor": [Color, null],
-      "elevation": [double, null],
-      "borderOnForeground": [bool, false],
-      "margin": [EdgeInsetsGeometry, null],
-      "semanticContainer": [bool, false],
-      "clipBehavior": [Clip, Clip.antiAlias],
-      "child": [Widget, null],
-      "shape": [RoundedRectangleBorder, null],
-    };
   }
 
   @override

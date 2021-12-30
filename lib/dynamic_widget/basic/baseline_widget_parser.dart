@@ -6,7 +6,7 @@ class BaselineWidgetParser extends WidgetParser {
   @override
   Map<String, List> attrMapping() {
     return <String, List>{
-      "baseline": [double, 0.0],
+      "baseline": [double, null],
       "baselineType": [TextBaseline, TextBaseline.ideographic],
       "child": [Widget, null],
     };

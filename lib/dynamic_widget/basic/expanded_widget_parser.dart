@@ -8,7 +8,7 @@ class ExpandedWidgetParser extends WidgetParser {
   Map<String, List> attrMapping() {
     return <String, List>{
       "child": [Widget, null],
-      "flex": [int, 0],
+      "flex": [int, 1],
     };
   }
 

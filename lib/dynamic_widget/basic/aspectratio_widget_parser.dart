@@ -6,7 +6,7 @@ class AspectRatioWidgetParser extends WidgetParser {
   @override
   Map<String, List> attrMapping() {
     return <String, List>{
-      "aspectRatio": [double, 0.0],
+      "aspectRatio": [double, null],
       "child": [Widget, null],
     };
   }

@@ -10,7 +10,7 @@ class ListTileWidgetParser extends WidgetParser {
       "isThreeLine": [bool, false],
       "contentPadding": [EdgeInsetsGeometry, null],
       "dense": [bool, false],
-      "enable": [bool, true],
+      "enabled": [bool, true],
       "leading": [Widget, null],
       "selected": [bool, false],
       "subtitle": [Widget, null],

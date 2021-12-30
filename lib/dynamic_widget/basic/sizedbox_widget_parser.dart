@@ -1,6 +1,5 @@
 import 'package:dynamic_widget/dynamic_widget.dart';
 import 'package:dynamic_widget/dynamic_widget/attr_helper.dart';
-import 'package:dynamic_widget/dynamic_widget/utils.dart';
 import 'package:flutter/widgets.dart';
 
 //Creates a box that will become as large as its parent allows.
@@ -37,8 +36,8 @@ class SizedBoxWidgetParser extends WidgetParser {
   @override
   Map<String, List> attrMapping() {
     return <String, List>{
-      "width": [double, 0.0],
-      "height": [double, 0.0],
+      "width": [double, null],
+      "height": [double, null],
       "child": [Widget, null],
     };
   }
