@@ -1208,7 +1208,13 @@ double toDouble(i, [def = 0.0]) {
     return i;
   }
   try {
-    var ti = double.tryParse(i);
+    double? ti;
+    if (i is String) {
+      ti = double.tryParse(i);
+    } else if (i is int) {
+      ti = i.toDouble();
+    }
+
     if (ti != null) {
       return ti;
     }
