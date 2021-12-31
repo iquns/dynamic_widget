@@ -44,6 +44,7 @@ class AttrSet {
       double: (v) => toDouble(v, attrDefault),
       String: (v) => toStr(v, attrDefault),
       Map: (v) => toMap(v, attrDefault),
+      Function: (v) => v,
       List: (v) => toList(v, attrDefault),
       Widget: (v) =>
           DynamicWidgetBuilder.buildFromMap(v, buildContext, listener),
