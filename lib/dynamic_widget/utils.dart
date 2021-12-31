@@ -243,7 +243,7 @@ TextStyle? parseTextStyle(Map<String, dynamic>? map) {
   String? debugLabel = map['debugLabel'];
   String? decoration = map['decoration'];
   String? fontFamily = map['fontFamily'];
-  double? fontSize = toDouble(map['fontSize']);
+  double? fontSize = map['fontSize'] != null ? toDouble(map['fontSize']) : null;
   String? fontWeight = map['fontWeight'];
   FontStyle fontStyle =
       'italic' == map['fontStyle'] ? FontStyle.italic : FontStyle.normal;
