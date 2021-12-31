@@ -80,7 +80,7 @@ class TextWidgetParser implements WidgetParser {
       var parser = TextSpanParser();
       return <String, dynamic>{
         "type": "Text",
-        "textSpan": parser.export(realWidget.textSpan as Widget, null),
+        "textSpan": parser.export(realWidget.textSpan as TextSpan, null),
         "textAlign": realWidget.textAlign != null
             ? exportTextAlign(realWidget.textAlign)
             : "start",
@@ -104,30 +104,26 @@ class TextWidgetParser implements WidgetParser {
   bool matchWidgetForExport(Widget? widget) => widget is Text;
 }
 
-class TextSpanParser implements WidgetParser {
-  @override
-  String get widgetName => "TextSpan";
-
-  @override
-  Type get widgetType => TextSpan;
-
-  @override
+class TextSpanParser {
   Map<String, List> attrMapping() {
     return <String, List>{
       "recognizer": [String, ""],
       "text": [String, ""],
       "style": [TextStyle, null],
-      "children": [Widgets, null],
+      "children": [TextSpans, null],
     };
   }
 
-  Widget parse(AttrSet attr, BuildContext context, ClickListener? listener) {
-    var textSpan = parseTextSpan(attr, context, listener);
-    return Text.rich(textSpan);
+  List<InlineSpan> parseTextSpans(
+      List<dynamic> children, BuildContext context, ClickListener? listener) {
+    return children.map((e) {
+      return TextSpanParser().parseTextSpan(e, context, listener);
+    }).toList();
   }
 
   TextSpan parseTextSpan(
-      AttrSet attr, BuildContext context, ClickListener? listener) {
+      Map<String, dynamic> map, BuildContext context, ClickListener? listener) {
+    var attr = AttrSet(attrMapping(), map, context, listener);
     var textSpan = TextSpan(
         text: attr.get('text'),
         style: attr.get('style'),
@@ -137,39 +133,24 @@ class TextSpanParser implements WidgetParser {
           },
         children: attr.get('children'));
 
-    // var children = attr.get('children');
-    // if (children != null) {
-    //   parseChildren(textSpan, attr, context, children, listener);
-    // }
-
     return textSpan;
   }
 
-  Map<String, dynamic> export(Widget? textSpan, BuildContext? context) {
-    var a = textSpan as TextSpan;
+  Map<String, dynamic> export(TextSpan textSpan, BuildContext? context) {
     return <String, dynamic>{
-      "text": a.text,
-      "style": exportTextStyle(a.style),
-      "children": exportChildren(a)
+      "text": textSpan.text,
+      "style": exportTextStyle(textSpan.style),
+      "children": exportChildren(textSpan)
     };
   }
-
-  // void parseChildren(TextSpan textSpan, AttrSet attr, BuildContext context,
-  //     List<dynamic> childrenSpan, ClickListener? listener) {
-  //   for (var childmap in childrenSpan) {
-  //     textSpan.children!.add(parseTextSpan(attr, context, listener));
-  //   }
-  // }
 
   List<Map<String, dynamic>> exportChildren(TextSpan textSpan) {
     List<Map<String, dynamic>> rt = [];
     if (textSpan.children != null && textSpan.children!.isNotEmpty) {
       for (var span in textSpan.children!) {
-        rt.add(export(span as Widget, null));
+        rt.add(export(span as TextSpan, null));
       }
     }
     return rt;
   }
-
-  bool matchWidgetForExport(Widget? widget) => widget is TextSpan;
 }

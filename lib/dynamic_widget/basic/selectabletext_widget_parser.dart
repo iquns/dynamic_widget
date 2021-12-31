@@ -63,7 +63,7 @@ class SelectableTextWidgetParser implements WidgetParser {
       var parser = TextSpanParser();
       return <String, dynamic>{
         "type": "SelectableText",
-        "textSpan": parser.export(realWidget.textSpan! as Widget, null),
+        "textSpan": parser.export(realWidget.textSpan!, null),
         "textAlign": realWidget.textAlign != null
             ? exportTextAlign(realWidget.textAlign)
             : "start",

@@ -69,7 +69,9 @@ class AttrSet {
       TextAlign: (v) => parseTextAlign(v),
       TextBaseline: (v) => parseTextBaseline(toStr(v, "")),
       TextSpan: (v) =>
-          TextSpanParser().parseTextSpan(this, buildContext, listener),
+          TextSpanParser().parseTextSpan(v, buildContext, listener),
+      TextSpans: (v) =>
+          TextSpanParser().parseTextSpans(v, buildContext, listener),
       RoundedRectangleBorder: (v) => RoundedRectangleBorderParser.parse(v),
       IconData: (v) => getIconUsingPrefix(name: v),
       BoxConstraints: (v) => parseBoxConstraints(v),

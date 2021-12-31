@@ -46,6 +46,8 @@ import 'dynamic_widget/basic/rotatedbox_widget_parser.dart';
 
 class Widgets {}
 
+class TextSpans {}
+
 class DynamicWidgetBuilder {
   static final Logger log = Logger('DynamicWidget');
 
@@ -92,7 +94,6 @@ class DynamicWidgetBuilder {
     RotatedBoxWidgetParser(),
     CardParser(),
     SingleChildScrollViewParser(),
-    TextSpanParser(),
   ];
 
   static final _widgetNameParserMap = new LinkedHashMap<String, dynamic>(
@@ -199,8 +200,8 @@ abstract class WidgetParser {
   Map<String, List<dynamic>> attrMapping();
 
   /// parse the json map into a flutter widget.
-  Widget parse(AttrSet attr, BuildContext buildContext,
-      ClickListener? listener);
+  Widget parse(
+      AttrSet attr, BuildContext buildContext, ClickListener? listener);
 
   /// the widget type name for example:
   /// {"type" : "Text", "data" : "Denny"}
