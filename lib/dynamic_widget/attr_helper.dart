@@ -22,29 +22,23 @@ class AttrSet {
   // listener
   final ClickListener? listener;
 
+  Map<Type, FunctionConvertAttr> resolver = {};
+
   AttrSet(this.mapping, this.values, this.buildContext, this.listener);
 
-  dynamic get(String key) {
-    List? set = this.mapping[key];
-    if (set == null) {
-      print("UnKnownField:" + key);
-      return null;
-    }
-    // type
-    var attrType = set[0];
-    // default value
-    var attrDefault = set.length > 1 ? (set[1] ?? null) : null;
-    // formatter
-    var attrFormatter = set.length > 2 ? (set[2] ?? (v) => v) : (v) => v;
+  dynamic getResolver(Type t) {
+    return resolver[t];
+  }
 
-    // not contains
-    if (!values.containsKey(key) || values[key] == null) {
-      // print("UnSetField:" + key);
-      return attrFormatter(attrDefault);
-    }
+  addResolver(Type t, FunctionConvertAttr func) {
+    resolver[t] = func;
+  }
 
-    // todo cache map
-    var methodMap = <Type, FunctionConvertAttr>{
+  bindResolver(attrDefault) {
+    if (resolver.isNotEmpty) {
+      return;
+    }
+    resolver = {
       bool: (v) => toBool(v, attrDefault),
       int: (v) => toInt(v, attrDefault),
       double: (v) => toDouble(v, attrDefault),
@@ -87,14 +81,36 @@ class AttrSet {
       WrapAlignment: (v) => parseWrapAlignment(v),
       WrapCrossAlignment: (v) => parseWrapCrossAlignment(v),
     };
+  }
 
-    var method = methodMap[attrType];
+  dynamic get(String key) {
+    List? set = this.mapping[key];
+    if (set == null) {
+      print("UnKnownField:" + key);
+      return null;
+    }
+    // type
+    var attrType = set[0];
+    // default value
+    var attrDefault = set.length > 1 ? (set[1] ?? null) : null;
+    // formatter
+    var attrFormatter = set.length > 2 ? (set[2] ?? (v) => v) : (v) => v;
 
-    if (method == null) {
-      print("UnSupportMethod:" + attrType.toString());
+    // not contains
+    if (!values.containsKey(key) || values[key] == null) {
+      // print("UnSetField:" + key);
       return attrFormatter(attrDefault);
     }
-    var value = method(values[key] ?? attrDefault);
+
+    bindResolver(attrDefault);
+
+    var resolver = getResolver(attrType);
+
+    if (resolver == null) {
+      print("UnSupportResolveType:" + attrType.toString());
+      return attrFormatter(attrDefault);
+    }
+    var value = resolver(values[key] ?? attrDefault);
 
     return attrFormatter(value);
   }
