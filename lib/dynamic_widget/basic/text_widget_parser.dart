@@ -4,7 +4,7 @@ import 'package:dynamic_widget/dynamic_widget/utils.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
 
-class TextWidgetParser implements WidgetParser {
+class TextWidgetParser extends WidgetParser {
   @override
   Map<String, List> attrMapping() {
     return <String, List>{

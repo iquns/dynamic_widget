@@ -5,7 +5,7 @@ import 'package:dynamic_widget/dynamic_widget/basic/text_widget_parser.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-class SelectableTextWidgetParser implements WidgetParser {
+class SelectableTextWidgetParser extends WidgetParser {
   @override
   Map<String, List> attrMapping() {
     return <String, List>{

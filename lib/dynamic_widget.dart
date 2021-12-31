@@ -217,6 +217,10 @@ abstract class WidgetParser {
   Type get widgetType;
 
   bool matchWidgetForExport(Widget? widget) => widget.runtimeType == widgetType;
+
+  List getResolver() {
+    return [];
+  }
 }
 
 abstract class ClickListener {
