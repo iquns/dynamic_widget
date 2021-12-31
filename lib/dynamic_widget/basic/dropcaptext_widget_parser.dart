@@ -23,6 +23,7 @@ class DropCapTextParser extends WidgetParser {
       "overflow": [TextOverflow, TextOverflow.ellipsis],
       "maxLines": [int, null],
       "dropCapPosition": [DropCapPosition, DropCapPosition.start],
+      'pageSize': [int, 0],
     };
   }
 

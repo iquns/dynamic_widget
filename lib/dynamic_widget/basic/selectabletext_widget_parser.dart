@@ -14,6 +14,7 @@ class SelectableTextWidgetParser implements WidgetParser {
       "maxLines": [int, null],
       "textDirection": [TextDirection, TextDirection.ltr],
       "textSpan": [Widget, null],
+      'style': [TextStyle, null],
     };
   }
 

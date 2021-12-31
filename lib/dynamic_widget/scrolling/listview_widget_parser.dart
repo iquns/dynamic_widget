@@ -35,7 +35,7 @@ class ListViewWidgetParser extends WidgetParser {
     var padding = attr.get("padding");
     var itemExtent = attr.get("itemExtent");
     var children = attr.get("children");
-    var pageSize = attr.get("pagSize");
+    var pageSize = attr.get("pageSize");
     var loadMoreUrl = attr.get("loadMoreUrl");
     var isDemo = attr.get("isDemo");
 

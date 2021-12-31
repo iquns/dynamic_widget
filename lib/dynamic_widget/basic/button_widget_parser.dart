@@ -13,7 +13,7 @@ class RaisedButtonParser extends WidgetParser {
   @override
   Map<String, List> attrMapping() {
     return <String, List>{
-      "client_event": [String, ""],
+      "click_event": [String, ""],
       "color": [Color, null],
       "disabledColor": [Color, null],
       "disabledElevation": [double, 0.0],
@@ -91,7 +91,7 @@ class ElevatedButtonParser extends WidgetParser {
   @override
   Map<String, List> attrMapping() {
     return <String, List>{
-      "client_event": [String, ""],
+      "click_event": [String, ""],
       "foregroundColor": [Color, null, AttrFormatter.color],
       "backgroundColor": [Color, null, AttrFormatter.color],
       "overlayColor": [Color, null, AttrFormatter.color],
@@ -183,7 +183,7 @@ class TextButtonParser extends WidgetParser {
   @override
   Map<String, List> attrMapping() {
     return <String, List>{
-      "client_event": [String, ""],
+      "click_event": [String, ""],
       "foregroundColor": [Color, null, AttrFormatter.color],
       "backgroundColor": [Color, null, AttrFormatter.color],
       "overlayColor": [Color, null, AttrFormatter.color],
