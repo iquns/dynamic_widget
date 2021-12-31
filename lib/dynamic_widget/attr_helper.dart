@@ -22,7 +22,7 @@ class AttrSet {
   // listener
   final ClickListener? listener;
 
-  Map<Type, FunctionConvertAttr> resolver = {};
+  static Map<Type, FunctionConvertAttr> resolver = {};
 
   AttrSet(this.mapping, this.values, this.buildContext, this.listener);
 
@@ -30,7 +30,7 @@ class AttrSet {
     return resolver[t];
   }
 
-  addResolver(Type t, FunctionConvertAttr func) {
+  static addResolver(Type t, FunctionConvertAttr func) {
     resolver[t] = func;
   }
 
