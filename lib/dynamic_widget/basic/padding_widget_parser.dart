@@ -8,7 +8,7 @@ class PaddingWidgetParser extends WidgetParser {
   Map<String, List> attrMapping() {
     return <String, List>{
       "child": [Widget, null],
-      "padding": [EdgeInsetsGeometry, null],
+      "padding": [EdgeInsetsGeometry, EdgeInsets.zero],
     };
   }
 

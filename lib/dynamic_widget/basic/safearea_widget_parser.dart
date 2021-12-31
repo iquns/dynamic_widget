@@ -11,7 +11,8 @@ class SafeAreaWidgetParser extends WidgetParser {
       "right": [bool, true],
       "top": [bool, true],
       "left": [bool, true],
-      "minimum": [EdgeInsetsGeometry, null],
+      "minimum": [EdgeInsetsGeometry, EdgeInsets.zero],
+      "maintainBottomViewPadding": [bool, false],
       "child": [Widget, null],
     };
   }

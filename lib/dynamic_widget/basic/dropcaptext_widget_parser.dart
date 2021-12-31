@@ -15,7 +15,7 @@ class DropCapTextParser extends WidgetParser {
       "dropCapStyle": [TextStyle, null],
       "textAlign": [TextAlign, TextAlign.left],
       "dropCap": [DropCap, null],
-      "dropCapPadding": [EdgeInsetsGeometry, ""],
+      "dropCapPadding": [EdgeInsetsGeometry, EdgeInsets.zero],
       "dropCapChars": [int, 0],
       "forceNoDescent": [bool, true],
       "parseInlineMarkdown": [bool, true],
