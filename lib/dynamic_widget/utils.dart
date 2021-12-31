@@ -1264,3 +1264,25 @@ bool toBool(s, [def = false]) {
   s = s.toString();
   return s.isNotEmpty && s.toLowerCase() != 'false';
 }
+
+// safe toMap
+Map toMap(s, [def]) {
+  if (s == null) {
+    return def;
+  }
+  if (s is Map) {
+    return s;
+  }
+  return def;
+}
+
+// safe toList
+List toList(s, [def]) {
+  if (s == null) {
+    return def;
+  }
+  if (s is List) {
+    return s;
+  }
+  return def;
+}
