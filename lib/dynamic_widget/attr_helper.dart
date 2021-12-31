@@ -30,11 +30,11 @@ class AttrSet {
     return resolver[t];
   }
 
-  static addResolver(Type t, FunctionConvertAttr func) {
+  static void addResolver(Type t, FunctionConvertAttr func) {
     resolver[t] = func;
   }
 
-  bindResolver(attrDefault) {
+  void bindResolver(attrDefault) {
     if (resolver.isNotEmpty) {
       return;
     }
