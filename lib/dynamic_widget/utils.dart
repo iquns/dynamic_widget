@@ -243,6 +243,7 @@ TextStyle? parseTextStyle(Map<String, dynamic>? map) {
   String? debugLabel = map['debugLabel'];
   String? decoration = map['decoration'];
   String? fontFamily = map['fontFamily'];
+  Color? backgroundColor = parseHexColor(map['backgroundColor']);
   double? fontSize = map['fontSize'] != null ? toDouble(map['fontSize']) : null;
   String? fontWeight = map['fontWeight'];
   FontStyle fontStyle =
@@ -250,6 +251,7 @@ TextStyle? parseTextStyle(Map<String, dynamic>? map) {
 
   return TextStyle(
     color: parseHexColor(color),
+    backgroundColor: backgroundColor,
     debugLabel: debugLabel,
     decoration: parseTextDecoration(decoration),
     fontSize: fontSize,
