@@ -22,7 +22,7 @@ class AssetImageWidgetParser extends WidgetParser {
       "width": [double, null],
       "height": [double, null],
       "color": [Color, null],
-      "colorBlendMode": [Color, null],
+      "colorBlendMode": [BlendMode, null],
       "fit": [BoxFit, null],
       "alignment": [Alignment, Alignment.center],
       "repeat": [ImageRepeat, ImageRepeat.noRepeat],
