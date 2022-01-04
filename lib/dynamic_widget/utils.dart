@@ -385,12 +385,30 @@ EdgeInsetsGeometry? parseEdgeInsetsGeometry(String? edgeInsetsGeometryString) {
       edgeInsetsGeometryString.trim() == '') {
     return null;
   }
-  var values = edgeInsetsGeometryString.split(",");
+  var values =
+      edgeInsetsGeometryString.replaceAll(RegExp(r'\s+'), ",").split(",");
+  if (values.length == 1) {
+    // [allInOne]
+    values.addAll([
+      values[0],
+      values[0],
+      values[0],
+    ]);
+  } else if (values.length == 2) {
+    // [horizontal, vertical]
+    values.addAll([
+      values[0],
+      values[1],
+    ]);
+  } else if (values.length == 3) {
+    //[L, T, R, [B]]
+    values.add(values[1]);
+  }
   return EdgeInsets.only(
       left: toDouble(values[0]),
-      top: values.length > 1 ? toDouble(values[1]) : 0.0,
-      right: values.length > 2 ? toDouble(values[2]) : 0.0,
-      bottom: values.length > 3 ? toDouble(values[3]) : 0.0);
+      top: toDouble(values[1]),
+      right: toDouble(values[2]),
+      bottom: toDouble(values[3]));
 }
 
 CrossAxisAlignment parseCrossAxisAlignment(String? crossAxisAlignmentString) {
